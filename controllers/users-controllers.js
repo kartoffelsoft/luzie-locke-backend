@@ -9,8 +9,7 @@ const loginGoogle = async (req, res) => {
   const User = mongoose.model('users');
   const RefreshToken = mongoose.model('refreshTokens');
 
-  let profile;
-  profile = await User.findOne({ googleId: data.sub });
+  let profile = await User.findOne({ googleId: data.sub });
 
   if (!profile) {
     profile = await new User({ 
