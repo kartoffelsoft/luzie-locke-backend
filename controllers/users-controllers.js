@@ -40,12 +40,8 @@ const loginGoogle = async (req, res) => {
 
 
 const refreshAccessToken = async (req, res) => {
-
   const { token } = req.body;
-  console.log("REFRESH TOKEN : " + token);
-
   const RefreshToken = mongoose.model('refreshTokens');
-
   const exist = await RefreshToken.findOne({ token: token }).populate('user');
 
   if (exist) {
