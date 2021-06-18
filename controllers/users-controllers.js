@@ -38,7 +38,6 @@ const loginGoogle = async (req, res) => {
   res.status(200).json({ profile, accessToken, refreshToken });
 };
 
-
 const refreshAccessToken = async (req, res) => {
   const { token } = req.body;
   const RefreshToken = mongoose.model('refreshTokens');
@@ -56,5 +55,40 @@ const refreshAccessToken = async (req, res) => {
   res.status(200).json({ success: false });
 };
 
+const updateLocation = async (req, res) => {
+  const { name, lat, lng } = req.body;
+  const uid = req.params.uid;
+
+  const User = mongoose.model('users');
+
+  let profile;
+
+  try {
+    profile = await User.findOne({ _id: uid });
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json({ profile: null });
+  }
+
+  if (!profile) {
+    console.log("@@@@");
+    return res.status(200).json({ profile: null });
+  }
+
+  profile.location.name = name;
+  profile.location.geoJSON.coordinates = [ lat, lng ];
+
+  try {
+    await profile.save();
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json({ profile: null });
+  }
+
+  console.log('Location updated!');
+  res.status(200).json({ profile });
+};
+
 exports.loginGoogle = loginGoogle;
 exports.refreshAccessToken = refreshAccessToken;
+exports.updateLocation = updateLocation;
