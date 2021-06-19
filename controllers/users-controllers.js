@@ -30,10 +30,14 @@ const loginGoogle = async (req, res) => {
     process.env.REFRESH_TOKEN_KEY,
     { expiresIn: '7d' });
 
-  await new RefreshToken({ 
-    token: refreshToken,
-    user: profile._id
-  }).save();
+  try {
+    await new RefreshToken({ 
+      token: refreshToken,
+      user: profile._id
+    }).save();
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
 
   res.status(200).json({ profile, accessToken, refreshToken });
 };
@@ -41,11 +45,18 @@ const loginGoogle = async (req, res) => {
 const refreshAccessToken = async (req, res) => {
   const { token } = req.body;
   const RefreshToken = mongoose.model('refreshTokens');
-  const exist = await RefreshToken.findOne({ token: token }).populate('user');
+
+  let exist;
+
+  try {
+    exist = await RefreshToken.findOne({ token: token }).populate('user');
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
 
   if (exist) {
     const accessToken = jwt.sign(
-      {_id: exist._id, googleId: exist.googleId},
+      { _id: exist._id, googleId: exist.googleId },
       process.env.ACCESS_TOKEN_KEY,
       { expiresIn: '3h' });
 
@@ -57,22 +68,20 @@ const refreshAccessToken = async (req, res) => {
 
 const updateLocation = async (req, res) => {
   const { name, lat, lng } = req.body;
-  const uid = req.params.uid;
-
   const User = mongoose.model('users');
 
   let profile;
 
   try {
-    profile = await User.findOne({ _id: uid });
+    profile = await User.findOne({ _id: req.uid });
   } catch (error) {
     console.log(error);
-    return res.status(200).json({ profile: null });
+    return res.status(500).json({ message: error });
   }
 
   if (!profile) {
-    console.log("@@@@");
-    return res.status(200).json({ profile: null });
+    console.log('User not found');
+    return res.status(500).json({ message: 'User not found' });
   }
 
   profile.location.name = name;
@@ -82,10 +91,9 @@ const updateLocation = async (req, res) => {
     await profile.save();
   } catch (error) {
     console.log(error);
-    return res.status(200).json({ profile: null });
+    return res.status(500).json({ message: error });
   }
 
-  console.log('Location updated!');
   res.status(200).json({ profile });
 };
 
