@@ -12,7 +12,7 @@ const getMyItems = async (req, res) => {
 
   try {
     user = await User.findById(req.uid).populate('items');;
-    if(!user) {
+    if (!user) {
       return res.status(404).json({ message: 'User not found.' });
     }
   } catch (error) {
