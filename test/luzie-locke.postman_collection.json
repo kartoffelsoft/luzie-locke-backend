@@ -41,6 +41,35 @@
 				"description": "A POST request to create an item."
 			},
 			"response": []
+		},
+		{
+			"name": "http://localhost:5000/api/items/my/",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGRhZDZiMGYyYzY5MzRmNWE4OTk5OTYiLCJnb29nbGVJZCI6IjExNDk3MzcwMDIyMDE4NzE0OTcxNiIsImlhdCI6MTYyNDk1NTI4NSwiZXhwIjoxNjI0OTY2MDg1fQ.L4Rckf9Z7TNFlzJJ6t-_s2EFcLca0NHcCcB02NdIcA4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/api/items/my/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"items",
+						"my",
+						""
+					]
+				},
+				"description": "GET message to get my items."
+			},
+			"response": []
 		}
 	]
 }
