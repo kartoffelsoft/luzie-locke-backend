@@ -19,7 +19,7 @@ const getMyItems = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 
-  res.status(200).json({ items: user.items });
+  res.status(200).json(user.items);
 };
 
 const getItem = async (req, res) => {
@@ -61,7 +61,7 @@ const createItem = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 
-  res.status(201).json({ item });
+  res.status(201).json(item);
 };
 
 const updateItem = async (req, res) => {

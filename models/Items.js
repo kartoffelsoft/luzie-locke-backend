@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const itemSchema = new Schema({
   owner: { type: mongoose.Types.ObjectId, required: true, ref: 'users' },
   title: { type: String, required: true },
-  price: { type: Number, required: true },
+  price: { type: String, required: true },
   description: { type: String, required: true },
   images: { type: [ String ], default: [] },
   like: {

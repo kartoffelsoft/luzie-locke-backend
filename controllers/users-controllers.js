@@ -18,7 +18,7 @@ const loginGoogle = async (req, res) => {
       email: data.email,
       pictureURI: data.picture,
     }).save()
-  } 
+  }
   
   const accessToken = jwt.sign(
     {_id: profile._id, googleId: profile.googleId},
