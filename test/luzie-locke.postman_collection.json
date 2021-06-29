@@ -1,0 +1,46 @@
+{
+	"info": {
+		"_postman_id": "ea4651b4-2255-402d-9533-eefc8ac7766c",
+		"name": "luzie-locke",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:5000/api/items/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGRhZDZiMGYyYzY5MzRmNWE4OTk5OTYiLCJnb29nbGVJZCI6IjExNDk3MzcwMDIyMDE4NzE0OTcxNiIsImlhdCI6MTYyNDk1NTI4NSwiZXhwIjoxNjI0OTY2MDg1fQ.L4Rckf9Z7TNFlzJJ6t-_s2EFcLca0NHcCcB02NdIcA4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Tedy bear with little scratches\",\n    \"price\": 59,\n    \"description\": \"Kids love this.\",\n    \"images\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/items/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"items",
+						""
+					]
+				},
+				"description": "A POST request to create an item."
+			},
+			"response": []
+		}
+	]
+}

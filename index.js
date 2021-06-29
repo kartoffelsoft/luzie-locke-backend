@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const usersRoutes = require('./routes/users-routes');
+const itemsRoutes = require('./routes/items-routes');
 
 require('./models/Users');
 require('./models/RefreshTokens');
@@ -20,8 +21,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-
 app.use('/api/users', usersRoutes);
+app.use('/api/items', itemsRoutes);
 
 app.get('/ping', (req, res) => {
   return res.status(200).json('succeed');

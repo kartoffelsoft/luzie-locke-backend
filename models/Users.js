@@ -20,7 +20,8 @@ const userSchema = new Schema({
         default: [ 0, 0 ]
       }
     }
-  }
+  },
+  items: { type: [ mongoose.Types.ObjectId ], ref: 'items', default: [] },
 });
 
-mongoose.model('users', userSchema);
+module.exports = mongoose.model('users', userSchema);
