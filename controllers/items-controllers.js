@@ -7,6 +7,21 @@ const getAllItems = async (req, res) => {
   res.status(200).json({});
 };
 
+const getMyItems = async (req, res) => {
+  let user;
+
+  try {
+    user = await User.findById(req.uid).populate('items');;
+    if(!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+
+  res.status(200).json({ items: user.items });
+};
+
 const getItem = async (req, res) => {
   const { id } = req.params;
   console.log('getItem: ' + id);
@@ -68,6 +83,7 @@ const deleteItem = async (req, res) => {
 };
 
 exports.getAllItems = getAllItems;
+exports.getMyItems = getMyItems;
 exports.getItem = getItem;
 exports.createItem = createItem;
 exports.updateItem = updateItem;
