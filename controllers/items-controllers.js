@@ -11,7 +11,14 @@ const getMyItems = async (req, res) => {
   let user;
 
   try {
-    user = await User.findById(req.uid).populate('items');;
+    user = await User.findById(req.uid).populate({
+      path: 'items',
+      populate: {
+        path: 'owner',
+        select: { 'location.name': 1 }
+      }
+    });
+    
     if (!user) {
       return res.status(404).json({ message: 'User not found.' });
     }
