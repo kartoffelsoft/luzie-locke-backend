@@ -2,9 +2,20 @@ const mongoose = require('mongoose');
 const Item = require('../models/Items');
 const User = require('../models/Users');
 
-const getAllItems = async (req, res) => {
-  console.log('getAllItems');
-  res.status(200).json({});
+const getItems = async (req, res) => {
+  let items;
+
+  try {
+    items = await Item.find().populate({
+      path: 'owner',
+      select: { 'location.name': 1 }
+    }).sort({ createdAt: -1 });
+
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+
+  res.status(200).json(items);
 };
 
 const getMyItems = async (req, res) => {
@@ -89,7 +100,7 @@ const deleteItem = async (req, res) => {
   res.status(200).json({});
 };
 
-exports.getAllItems = getAllItems;
+exports.getItems = getItems;
 exports.getMyItems = getMyItems;
 exports.getItem = getItem;
 exports.createItem = createItem;

@@ -5,7 +5,7 @@ const itemsControllers = require('../controllers/items-controllers')
 
 const router = express.Router();
 
-router.get('/', itemsControllers.getAllItems);
+router.get('/', itemsControllers.getItems);
 router.get('/my/', auth, itemsControllers.getMyItems);
 router.get('/:id', itemsControllers.getItem);
 
