@@ -4,7 +4,6 @@ const User = require('../models/Users');
 
 const getItems = async (req, res) => {
   let items;
-
   try {
     items = await Item.find().populate({
       path: 'owner',
@@ -20,7 +19,6 @@ const getItems = async (req, res) => {
 
 const getMyItems = async (req, res) => {
   let user;
-
   try {
     user = await User.findById(req.uid).populate({
       path: 'items',
@@ -42,15 +40,21 @@ const getMyItems = async (req, res) => {
 
 const getItem = async (req, res) => {
   const { id } = req.params;
-  console.log('getItem: ' + id);
-  res.status(200).json({});
+  
+  let item;
+  try {
+    item = await Item.findById(id).populate('owner');
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+
+  res.status(200).json(item);
 };
 
 const createItem = async (req, res) => {
   const { title, price, description, images } = req.body;
 
   let user;
-
   try {
     user = await User.findById(req.uid);
     if(!user) {
