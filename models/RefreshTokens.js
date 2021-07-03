@@ -7,4 +7,7 @@ const refreshTokenSchema = new Schema({
   createdAt: { type: Date, expires: 7 * 24 * 60 * 60, default: Date.now }
 });
 
-module.exports = mongoose.model('refreshTokens', refreshTokenSchema);
+const refreshTokenModel = mongoose.model('refreshTokens', refreshTokenSchema);
+refreshTokenModel.syncIndexes();
+
+module.exports = refreshTokenModel;

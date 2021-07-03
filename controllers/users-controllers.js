@@ -23,7 +23,7 @@ const loginGoogle = async (req, res) => {
   const accessToken = jwt.sign(
     { _id: profile._id, googleId: profile.googleId },
     process.env.ACCESS_TOKEN_KEY,
-    { expiresIn: '3h' });
+    { expiresIn: '4h' });
 
   const refreshToken = jwt.sign(
     { _id: profile._id, googleId: profile.googleId },
@@ -57,7 +57,7 @@ const refreshAccessToken = async (req, res) => {
     const accessToken = jwt.sign(
       { _id: exist.user_id, googleId: exist.user.googleId },
       process.env.ACCESS_TOKEN_KEY,
-      { expiresIn: '3h' });
+      { expiresIn: '4h' });
 
     return res.status(200).json({ success: true, accessToken });
   }
