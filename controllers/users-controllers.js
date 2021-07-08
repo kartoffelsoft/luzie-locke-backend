@@ -55,7 +55,7 @@ const refreshAccessToken = async (req, res) => {
 
   if (exist) {
     const accessToken = jwt.sign(
-      { _id: exist.user_id, googleId: exist.user.googleId },
+      { _id: exist.user._id, googleId: exist.user.googleId },
       process.env.ACCESS_TOKEN_KEY,
       { expiresIn: '4h' });
 
