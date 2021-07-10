@@ -6,10 +6,11 @@ const itemSchema = new Schema({
   title: { type: String, required: true },
   price: { type: String, required: true },
   description: { type: String, required: true },
-  images: { type: [ String ], default: [] },
-  like: {
-    count: { type: Number, default: 0 },
-    users: { type: [ mongoose.Types.ObjectId ], default: [] },
+  images: { type: [ String ], default: [] }, 
+  counts: {
+    chat: { type: Number, default: 0 },
+    favorite: { type: Number, default: 0 },
+    view: { type: Number, default: 0 },
   },
   createdAt: { type: Date, default: new Date() },
 });

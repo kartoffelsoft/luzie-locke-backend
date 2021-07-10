@@ -9,7 +9,6 @@ const getItems = async (req, res) => {
       path: 'owner',
       select: { 'location.name': 1 }
     }).sort({ createdAt: -1 });
-
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -43,7 +42,13 @@ const getItem = async (req, res) => {
   
   let item;
   try {
-    item = await Item.findById(id).populate('owner');
+    item = await Item.findByIdAndUpdate(
+			id,
+			{
+				$inc: { 'counts.view': 1 }
+			},
+			{ new: true }
+		).populate('owner');
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
