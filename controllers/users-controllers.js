@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/Users');
+const Inbox = require('../models/Inbox');
 const RefreshToken = require('../models/RefreshTokens');
 
 const loginGoogle = async (req, res) => {
@@ -12,12 +13,16 @@ const loginGoogle = async (req, res) => {
   let profile = await User.findOne({ googleId: data.sub });
 
   if (!profile) {
-    profile = await new User({ 
-      googleId: data.sub, 
-      name: data.given_name,
-      email: data.email,
-      pictureURI: data.picture,
-    }).save()
+    try {
+      profile = await new User({ 
+        googleId: data.sub, 
+        name: data.given_name,
+        email: data.email,
+        pictureURI: data.picture,
+      }).save();
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
   }
   
   const accessToken = jwt.sign(
