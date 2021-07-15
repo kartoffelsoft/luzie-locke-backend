@@ -49,6 +49,7 @@ const createChat = async (req, res) => {
     }
   }
   console.log(inbox);
+  console.log(messages);
 
   res.status(200).json({ chatId: inbox.chatId, chatMessages: messages });
 };

@@ -51,7 +51,6 @@ const refreshAccessToken = async (req, res) => {
   const { token } = req.body;
 
   let exist;
-
   try {
     exist = await RefreshToken.findOne({ token: token }).populate('user');
   } catch (error) {
