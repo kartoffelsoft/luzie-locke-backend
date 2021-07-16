@@ -4,13 +4,11 @@ const Message = require('../models/Message');
 const User = require('../models/Users');
 
 const getChatInbox = async (req, res) => {
-  const { id } = req.params;
+  const { uid } = req.params;
 
   let inbox;
   try {
-    inbox = await Inbox.find({
-      user: id 
-    });
+    inbox = await Inbox.find({ uid });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error.message });
@@ -20,13 +18,13 @@ const getChatInbox = async (req, res) => {
 };
 
 const createChat = async (req, res) => {
-  const { uid1, uid2 } = req.body;
+  const { uid, nid } = req.body;
 
   let inbox;
   try {
     inbox = await Inbox.findOne({
-      user: uid1, 
-      friend: uid2 
+      uid, 
+      nid 
     });
   } catch (error) {
     console.log(error);
@@ -41,8 +39,8 @@ const createChat = async (req, res) => {
 
     try {
       inbox = await new Inbox({ 
-        user: uid1,
-        friend: uid2
+        uid,
+        nid
       }).save();
     } catch (error) {
       return res.status(500).json({ message: error.message });
