@@ -49,7 +49,23 @@ const createChat = async (req, res) => {
   console.log(inbox);
   console.log(messages);
 
-  res.status(200).json({ chatId: inbox.chatId, chatMessages: messages });
+  try {
+    inbox = await Inbox.findOne({
+      uid, 
+      nid 
+    }).populate([{
+      path: 'uid',
+      select: { 'name': 1, 'pictureURI': 1 }
+    }, {
+      path: 'nid',
+      select: { 'name': 1, 'pictureURI': 1 }
+    }]);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: error.message });
+  }
+
+  res.status(200).json({ inbox, messages });
 };
 
 exports.getChatInbox = getChatInbox;
