@@ -3,18 +3,19 @@ const Inbox = require('../models/Inbox');
 const Message = require('../models/Message');
 const User = require('../models/Users');
 
-const getChatInbox = async (req, res) => {
-  const { uid } = req.params;
-
+const getInbox = async (req, res) => {
   let inbox;
   try {
-    inbox = await Inbox.find({ uid });
+    inbox = await Inbox.find({ uid: req.uid }).populate({
+      path: 'nid',
+      select: { 'name': 1, 'pictureURI': 1 }
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error.message });
   }
 
-  res.status(200).json({ inbox });
+  res.status(200).json(inbox);
 };
 
 const createChat = async (req, res) => {
@@ -68,5 +69,5 @@ const createChat = async (req, res) => {
   res.status(200).json({ inbox, messages });
 };
 
-exports.getChatInbox = getChatInbox;
+exports.getInbox = getInbox;
 exports.createChat = createChat;

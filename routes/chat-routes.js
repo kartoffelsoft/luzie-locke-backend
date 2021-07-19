@@ -5,7 +5,7 @@ const chatControllers = require('../controllers/chat-controllers')
 
 const router = express.Router();
 
-router.get('/:id', auth, chatControllers.getChatInbox);
+router.get('/', auth, chatControllers.getInbox);
 
 router.post('/', auth, chatControllers.createChat);
 
