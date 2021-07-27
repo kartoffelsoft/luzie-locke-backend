@@ -46,6 +46,18 @@ const createChat = async (req, res) => {
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
+
+    console.log("@creating.. " + uid);
+    try {
+      await new Inbox({ 
+        uid: nid,
+        nid: uid,
+        chatId: inbox.chatId
+      }).save();
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: error.message });
+    }
   }
   console.log(inbox);
   console.log(messages);
