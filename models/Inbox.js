@@ -9,7 +9,7 @@ const inboxSchema = new Schema({
   counts: {
     unseen: { type: Number, default: 0 },
   },
-  createdAt: { type: Date, default: new Date() }
+  updatedAt: { type: Date, default: new Date() }
 });
 
 module.exports = mongoose.model('inboxes', inboxSchema);

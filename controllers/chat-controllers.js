@@ -21,6 +21,10 @@ const getInbox = async (req, res) => {
 const createChat = async (req, res) => {
   const { uid, nid } = req.body;
 
+  if (uid === nid) {
+    return res.status(400).json({ message: 'uid and nid are the same.'});
+  }
+
   let inbox;
   try {
     inbox = await Inbox.findOne({

@@ -11,6 +11,7 @@ module.exports = function(io) {
     
     socket.on('send-message', async (message) => {
       console.log("Meesage received");
+      const currentDate = new Date();
       try {
         await Inbox.findOneAndUpdate({
           uid: message.author,
@@ -18,7 +19,8 @@ module.exports = function(io) {
         },
         {
           'counts.unseen': 0,
-          lastMessage: message.body
+          lastMessage: message.body,
+          updatedAt: currentDate,
         });
       } catch (error) {
         console.log(error);
@@ -32,7 +34,8 @@ module.exports = function(io) {
         },
         {
           $inc: { 'counts.unseen': 1 },
-          lastMessage: message.body
+          lastMessage: message.body,
+          updatedAt: currentDate,
         });
       } catch (error) {
         console.log(error);
