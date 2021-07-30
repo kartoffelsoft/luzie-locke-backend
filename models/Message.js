@@ -5,7 +5,10 @@ const messageSchema = new Schema({
   chatId: { type: mongoose.Types.ObjectId, required: true },
   author: { type: mongoose.Types.ObjectId, required: true, ref: 'users' },
   body: { type: String, required: true },
-  createdAt: { type: Date, required: true, default: new Date() },
+  createdAt: { type: Date, required: true, expires: 7 * 24 * 60 * 60, default: new Date() },
 });
 
-module.exports = mongoose.model('messages', messageSchema);
+const messageModel = mongoose.model('messages', messageSchema);
+messageModel.syncIndexes();
+
+module.exports = messageModel;
