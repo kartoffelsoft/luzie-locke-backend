@@ -6,7 +6,7 @@ const itemsControllers = require('../controllers/items-controllers')
 const router = express.Router();
 
 router.get('/', itemsControllers.getItems);
-router.get('/my/', auth, itemsControllers.getMyItems);
+router.get('/garage/', auth, itemsControllers.getGarageItems);
 router.get('/:id', itemsControllers.getItem);
 
 router.post('/', auth, itemsControllers.createItem);

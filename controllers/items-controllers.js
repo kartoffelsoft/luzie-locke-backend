@@ -16,7 +16,7 @@ const getItems = async (req, res) => {
   res.status(200).json(items);
 };
 
-const getMyItems = async (req, res) => {
+const getGarageItems = async (req, res) => {
   let user;
   try {
     user = await User.findById(req.uid).populate({
@@ -110,7 +110,7 @@ const deleteItem = async (req, res) => {
 };
 
 exports.getItems = getItems;
-exports.getMyItems = getMyItems;
+exports.getGarageItems = getGarageItems;
 exports.getItem = getItem;
 exports.createItem = createItem;
 exports.updateItem = updateItem;

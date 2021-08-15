@@ -12,6 +12,7 @@ const itemSchema = new Schema({
     favorite: { type: Number, default: 0 },
     view: { type: Number, default: 0 },
   },
+  state: { type: String, default: 'active' },
   createdAt: { type: Date, default: new Date() },
 });
 
