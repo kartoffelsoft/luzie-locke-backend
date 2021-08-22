@@ -2,6 +2,38 @@ const mongoose = require('mongoose');
 const Item = require('../models/Items');
 const User = require('../models/Users');
 
+const paginatedQuery = async (model, page, limit) => {
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+
+  const results = {};
+
+  if (endIndex < model.length) {
+    results.next = {
+      page: page + 1,
+      limit: limit
+    };
+  }
+
+  if (startIndex > 0) {
+    results.previous = {
+      page: page - 1,
+      limit: limit
+    };
+  }
+
+  try {
+    results.results = await model.find().limit(limit).skip(startIndex).populate({
+      path: 'owner',
+      select: { 'location.name': 1 }
+    });
+  } catch (error) {
+    throw(error);
+  }
+
+  return results;
+};
+
 const getItems = async (req, res) => {
   let items;
   try {
@@ -14,6 +46,41 @@ const getItems = async (req, res) => {
   }
 
   res.status(200).json(items);
+};
+
+const getHotItems = async (req, res) => {
+  const page = parseInt(req.query.page);
+  const limit = parseInt(req.query.limit);
+  
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+
+  const results = {};
+
+  try {
+    results.results = await Item.find().limit(limit).skip(startIndex).populate({
+      path: 'owner',
+      select: { 'location.name': 1 }
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+
+  if (endIndex < await Item.countDocuments()) {
+    results.next = {
+      page: page + 1,
+      limit: limit
+    };
+  }
+
+  if (startIndex > 0) {
+    results.previous = {
+      page: page - 1,
+      limit: limit
+    };
+  }
+
+  res.status(200).json(results);
 };
 
 const getGarageItems = async (req, res) => {
@@ -110,6 +177,7 @@ const deleteItem = async (req, res) => {
 };
 
 exports.getItems = getItems;
+exports.getHotItems = getHotItems;
 exports.getGarageItems = getGarageItems;
 exports.getItem = getItem;
 exports.createItem = createItem;
