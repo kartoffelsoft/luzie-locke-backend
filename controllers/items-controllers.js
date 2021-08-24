@@ -2,13 +2,25 @@ const mongoose = require('mongoose');
 const Item = require('../models/Items');
 const User = require('../models/Users');
 
-const paginatedQuery = async (model, page, limit) => {
+const getRecentItems = async (req, res) => {
+  const page = parseInt(req.query.page);
+  const limit = parseInt(req.query.limit);
+  
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit;
 
   const results = {};
 
-  if (endIndex < model.length) {
+  try {
+    results.results = await Item.find().sort({ createdAt: -1 }).limit(limit).skip(startIndex).populate({
+      path: 'owner',
+      select: { 'location.name': 1 }
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+
+  if (endIndex < await Item.countDocuments()) {
     results.next = {
       page: page + 1,
       limit: limit
@@ -22,30 +34,7 @@ const paginatedQuery = async (model, page, limit) => {
     };
   }
 
-  try {
-    results.results = await model.find().limit(limit).skip(startIndex).populate({
-      path: 'owner',
-      select: { 'location.name': 1 }
-    });
-  } catch (error) {
-    throw(error);
-  }
-
-  return results;
-};
-
-const getItems = async (req, res) => {
-  let items;
-  try {
-    items = await Item.find().populate({
-      path: 'owner',
-      select: { 'location.name': 1 }
-    }).sort({ createdAt: -1 });
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-
-  res.status(200).json(items);
+  res.status(200).json(results);
 };
 
 const getHotItems = async (req, res) => {
@@ -176,7 +165,7 @@ const deleteItem = async (req, res) => {
   res.status(200).json({});
 };
 
-exports.getItems = getItems;
+exports.getRecentItems = getRecentItems;
 exports.getHotItems = getHotItems;
 exports.getGarageItems = getGarageItems;
 exports.getItem = getItem;
