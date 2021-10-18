@@ -7,7 +7,7 @@ const Inbox = require('../models/Inbox');
 const RefreshToken = require('../models/RefreshTokens');
 
 const loginGoogle = async (req, res) => {
-  const { token } = req.body;
+  const { uid, token } = req.body;
   const { data } = await axios.get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${token}`);
 
   let profile = await User.findOne({ googleId: data.sub });
@@ -15,6 +15,7 @@ const loginGoogle = async (req, res) => {
   if (!profile) {
     try {
       profile = await new User({ 
+        uid: uid,
         googleId: data.sub, 
         name: data.given_name,
         email: data.email,
