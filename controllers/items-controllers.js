@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Item = require('../models/Items');
 const User = require('../models/Users');
+const Listing = require('../models/Listings');
 
 const getRecentItems = async (req, res) => {
   const page = parseInt(req.query.page);
@@ -13,11 +14,11 @@ const getRecentItems = async (req, res) => {
 
   try {
     results.results = await Item.find().sort({ createdAt: -1 }).limit(limit).skip(startIndex).populate({
-      path: 'owner',
+      path: 'user',
       select: { 'location.name': 1 }
     });
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json({ status: 'NOK', message: error.message, data: null });
   }
 
   if (endIndex < await Item.countDocuments()) {
@@ -34,7 +35,7 @@ const getRecentItems = async (req, res) => {
     };
   }
 
-  res.status(200).json(results);
+  res.status(200).json({ status: 'OK', message: '', data: { items: results.results, next: results.next, previous: results.previous } });
 };
 
 const getHotItems = async (req, res) => {
@@ -48,7 +49,7 @@ const getHotItems = async (req, res) => {
 
   try {
     results.results = await Item.find().limit(limit).skip(startIndex).populate({
-      path: 'owner',
+      path: 'uid',
       select: { 'location.name': 1 }
     });
   } catch (error) {
@@ -78,7 +79,7 @@ const getGarageItems = async (req, res) => {
     user = await User.findById(req.uid).populate({
       path: 'items',
       populate: {
-        path: 'owner',
+        path: 'uid',
         select: { 'location.name': 1 }
       }
     });
@@ -104,29 +105,29 @@ const getItem = async (req, res) => {
 				$inc: { 'counts.view': 1 }
 			},
 			{ new: true }
-		).populate('owner');
+		).populate('user');
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json({ status: 'NOK', message: error.message, data: null });
   }
 
-  res.status(200).json(item);
+  res.status(200).json({ status: 'OK', message: '', data: { item } });
 };
 
 const createItem = async (req, res) => {
   const { title, price, description, images } = req.body;
 
-  let user;
+  let listing;
   try {
-    user = await User.findById(req.uid);
-    if(!user) {
-      return res.status(404).json({ message: 'User not found.' });
+    listing = await Listing.findOne({ uid: req.uid }) 
+    if(!listing) {
+      return res.status(404).json({ status: 'NOK', message: 'User not found.', data: null });
     }
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json({ status: 'NOK', message: error.message, data: null });
   }
 
   const item = new Item({
-    owner: mongoose.Types.ObjectId(req.uid),
+    user: req.uid,
     title, 
     price,
     description, 
@@ -137,14 +138,14 @@ const createItem = async (req, res) => {
     const session = await mongoose.startSession();
     session.startTransaction();
     await item.save({ session });
-    user.items.push(item);
-    await user.save({ session });
+    listing.items.push(item);
+    await listing.save({ session });
     await session.commitTransaction();
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json({ status: 'NOK', message: error.message, data: null });
   }
 
-  res.status(201).json(item);
+  res.status(201).json({ status: 'OK', message: '', data: null });
 };
 
 const updateItem = async (req, res) => {

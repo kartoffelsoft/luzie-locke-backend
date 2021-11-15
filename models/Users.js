@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-  uid: { type: String },
+  _id: { type: String },
   googleId: { type: String },
   name: { type: String },
   email: { type: String },
@@ -21,8 +21,7 @@ const userSchema = new Schema({
         default: [ 0, 0 ]
       }
     }
-  },
-  items: { type: [ mongoose.Types.ObjectId ], ref: 'items', default: [] },
+  }
 });
 
 module.exports = mongoose.model('users', userSchema);

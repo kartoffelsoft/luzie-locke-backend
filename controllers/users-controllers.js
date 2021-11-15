@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/Users');
-const Inbox = require('../models/Inbox');
+const Listing = require('../models/Listings');
 const RefreshToken = require('../models/RefreshTokens');
 
 const loginGoogle = async (req, res) => {
@@ -15,21 +15,27 @@ const loginGoogle = async (req, res) => {
   if (!profile) {
     try {
       profile = await new User({ 
-        uid: uid,
+        _id: uid,
         googleId: data.sub, 
         name: data.given_name,
         email: data.email,
         pictureURI: data.picture,
       }).save();
+
+      await new Listing({ 
+        uid: uid,
+        images: []
+      }).save();
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+      console.log("@@", error.message)
+      return res.status(500).json({ status: 'NOK', message: error.message, data: null });
     }
   }
-  
+
   const accessToken = jwt.sign(
     { _id: profile._id, googleId: profile.googleId },
     process.env.ACCESS_TOKEN_KEY,
-    { expiresIn: '4h' });
+    { expiresIn: '365d' }); //4h
 
   const refreshToken = jwt.sign(
     { _id: profile._id, googleId: profile.googleId },
@@ -42,10 +48,10 @@ const loginGoogle = async (req, res) => {
       user: profile._id
     }).save();
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json({ status: 'NOK', message: error.message, data: null });
   }
 
-  res.status(200).json({ profile, accessToken, refreshToken });
+  res.status(200).json({ status: 'OK', message: '', data: { profile, accessToken, refreshToken } });
 };
 
 const refreshAccessToken = async (req, res) => {
@@ -78,11 +84,11 @@ const updateLocation = async (req, res) => {
   try {
     profile = await User.findOne({ _id: req.uid });
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json({ status: 'NOK', message: error.message });
   }
 
   if (!profile) {
-    return res.status(500).json({ message: 'User not found' });
+    return res.status(500).json({ status: 'NOK', message: 'User not found' });
   }
 
   profile.location.name = name;
@@ -94,9 +100,29 @@ const updateLocation = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 
-  res.status(200).json({ profile });
+  res.status(200).json({ status: 'OK', message: '', data: { profile } });
+};
+
+const getUserProfile = async (req, res) => {
+  const { id } = req.params;
+
+  let profile;
+
+  try {
+    profile = await User.findOne({ _id: id });
+  } catch (error) {
+    return res.status(500).json({ status: 'NOK', message: error.message, data: null });
+  }
+
+  if (!profile) {
+    return res.status(500).json({ status: 'NOK', message:  'User not found', data: null });
+  }
+
+  res.status(200).json({ status: 'OK', message: '', data: { profile } });
 };
 
 exports.loginGoogle = loginGoogle;
 exports.refreshAccessToken = refreshAccessToken;
 exports.updateLocation = updateLocation;
+exports.getUserProfile = getUserProfile;
+

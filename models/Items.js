@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const itemSchema = new Schema({
-  owner: { type: mongoose.Types.ObjectId, required: true, ref: 'users' },
+  user: { type: String, required: true, ref: 'users' },
   title: { type: String, required: true },
   price: { type: String, required: true },
   description: { type: String, required: true },
