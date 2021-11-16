@@ -7,8 +7,7 @@ import http from 'http'
 import mongoose from 'mongoose'
 import cors from 'cors';
 
-import usersRoutes from './routes/users-routes.js';
-import itemsRoutes from './routes/items-routes.js';
+import { usersRoutes, itemRoutes } from './routes/index.js';
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,

@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
-import Item from '../models/Items.js';
-import User from '../models/Users.js';
-import Listing from '../models/Listings.js';
+
+import { Items, Users, Listings } from '../models/index.js';
 
 const getRecentItems = async (req, res) => {
   const page = parseInt(req.query.page);
@@ -13,7 +12,7 @@ const getRecentItems = async (req, res) => {
   const results = {};
 
   try {
-    results.results = await Item.find().sort({ createdAt: -1 }).limit(limit).skip(startIndex).populate({
+    results.results = await Items.find().sort({ createdAt: -1 }).limit(limit).skip(startIndex).populate({
       path: 'user',
       select: { 'location.name': 1 }
     });
@@ -21,7 +20,7 @@ const getRecentItems = async (req, res) => {
     return res.status(500).json({ status: 'NOK', message: error.message, data: null });
   }
 
-  if (endIndex < await Item.countDocuments()) {
+  if (endIndex < await Items.countDocuments()) {
     results.next = {
       page: page + 1,
       limit: limit
@@ -56,7 +55,7 @@ const getHotItems = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 
-  if (endIndex < await Item.countDocuments()) {
+  if (endIndex < await Items.countDocuments()) {
     results.next = {
       page: page + 1,
       limit: limit
@@ -76,7 +75,7 @@ const getHotItems = async (req, res) => {
 const getGarageItems = async (req, res) => {
   let user;
   try {
-    user = await User.findById(req.uid).populate({
+    user = await Users.findById(req.uid).populate({
       path: 'items',
       populate: {
         path: 'uid',
@@ -99,7 +98,7 @@ const getItem = async (req, res) => {
   
   let item;
   try {
-    item = await Item.findByIdAndUpdate(
+    item = await Items.findByIdAndUpdate(
 			id,
 			{
 				$inc: { 'counts.view': 1 }
@@ -118,7 +117,7 @@ const createItem = async (req, res) => {
 
   let listing;
   try {
-    listing = await Listing.findOne({ uid: req.uid }) 
+    listing = await Listings.findOne({ uid: req.uid }) 
     if(!listing) {
       return res.status(404).json({ status: 'NOK', message: 'User not found.', data: null });
     }
@@ -126,7 +125,7 @@ const createItem = async (req, res) => {
     return res.status(500).json({ status: 'NOK', message: error.message, data: null });
   }
 
-  const item = new Item({
+  const item = new Items({
     user: req.uid,
     title, 
     price,

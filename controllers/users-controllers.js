@@ -1,20 +1,17 @@
 import axios from 'axios';
-import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
-import User from '../models/Users.js';
-import Listing from '../models/Listings.js';
-import RefreshToken from '../models/RefreshTokens.js';
+import { Users, Listings, RefreshTokens } from '../models/index.js' 
 
 const loginGoogle = async (req, res) => {
   const { uid, token } = req.body;
   const { data } = await axios.get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${token}`);
 
-  let profile = await User.findOne({ googleId: data.sub });
+  let profile = await Users.findOne({ googleId: data.sub });
 
   if (!profile) {
     try {
-      profile = await new User({ 
+      profile = await new Users({ 
         _id: uid,
         googleId: data.sub, 
         name: data.given_name,
@@ -43,7 +40,7 @@ const loginGoogle = async (req, res) => {
     { expiresIn: '7d' });
 
   try {
-    await new RefreshToken({ 
+    await new RefreshTokens({ 
       token: refreshToken,
       user: profile._id
     }).save();
@@ -59,7 +56,7 @@ const refreshAccessToken = async (req, res) => {
 
   let exist;
   try {
-    exist = await RefreshToken.findOne({ token: token }).populate('user');
+    exist = await RefreshTokens.findOne({ token: token }).populate('user');
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -109,7 +106,7 @@ const getUserProfile = async (req, res) => {
   let profile;
 
   try {
-    profile = await User.findOne({ _id: id });
+    profile = await Users.findOne({ _id: id });
   } catch (error) {
     return res.status(500).json({ status: 'NOK', message: error.message, data: null });
   }

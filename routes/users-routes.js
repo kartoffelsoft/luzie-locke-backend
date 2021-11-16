@@ -1,7 +1,7 @@
 import express from 'express';
 
 import auth from '../middleware/auth.js';
-// import makeExpressCallback from '../express-callback';
+import { makeExpressCallback } from '../express-callback/index.js';
 
 import usersControllers from '../controllers/users-controllers.js';
 

@@ -1,4 +1,4 @@
-export function makeExpressCallback(controller) {
+function makeExpressCallback(controller) {
   return (req, res) => {
     const httpRequest = {
       body: req.body,
@@ -26,4 +26,8 @@ export function makeExpressCallback(controller) {
         error: 'An unknown error occurred.' 
       }))
   }
+}
+
+export {
+  makeExpressCallback
 }
