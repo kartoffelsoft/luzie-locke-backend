@@ -1,7 +1,7 @@
-const express = require('express');
+import express from 'express';
 
-const auth = require("../middleware/auth.js");
-const itemsControllers = require('../controllers/items-controllers')
+import auth from '../middleware/auth.js'
+import itemsControllers from '../controllers/items-controllers.js'
 
 const router = express.Router();
 
@@ -17,4 +17,4 @@ router.patch('/:id/like', auth, itemsControllers.updateLike);
 
 router.delete('/:id', auth, itemsControllers.deleteItem);
 
-module.exports = router;
+export default router;

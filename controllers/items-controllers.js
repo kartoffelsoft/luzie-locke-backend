@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const Item = require('../models/Items');
-const User = require('../models/Users');
-const Listing = require('../models/Listings');
+import mongoose from 'mongoose';
+import Item from '../models/Items.js';
+import User from '../models/Users.js';
+import Listing from '../models/Listings.js';
 
 const getRecentItems = async (req, res) => {
   const page = parseInt(req.query.page);
@@ -166,11 +166,15 @@ const deleteItem = async (req, res) => {
   res.status(200).json({});
 };
 
-exports.getRecentItems = getRecentItems;
-exports.getHotItems = getHotItems;
-exports.getGarageItems = getGarageItems;
-exports.getItem = getItem;
-exports.createItem = createItem;
-exports.updateItem = updateItem;
-exports.updateLike = updateLike;
-exports.deleteItem = deleteItem;
+const itemsControllers = Object.freeze({
+  getRecentItems,
+  getHotItems,
+  getGarageItems,
+  getItem,
+  createItem,
+  updateItem,
+  updateLike,
+  deleteItem
+})
+
+export default itemsControllers

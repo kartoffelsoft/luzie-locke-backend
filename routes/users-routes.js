@@ -1,13 +1,17 @@
-const express = require('express');
+import express from 'express';
 
-const auth = require("../middleware/auth.js");
-const usersControllers = require('../controllers/users-controllers')
+import auth from '../middleware/auth.js';
+// import makeExpressCallback from '../express-callback';
 
-const router = express.Router();
+import usersControllers from '../controllers/users-controllers.js';
+
+const router = express.Router()
 
 router.get('/:id', usersControllers.getUserProfile);
+
 router.post('/login/google', usersControllers.loginGoogle);
 router.post('/login/refresh', usersControllers.refreshAccessToken);
+
 router.patch('/location', auth, usersControllers.updateLocation);
 
-module.exports = router;
+export default router;

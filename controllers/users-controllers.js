@@ -1,10 +1,10 @@
-const axios = require('axios');
-const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
+import axios from 'axios';
+import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
 
-const User = require('../models/Users');
-const Listing = require('../models/Listings');
-const RefreshToken = require('../models/RefreshTokens');
+import User from '../models/Users.js';
+import Listing from '../models/Listings.js';
+import RefreshToken from '../models/RefreshTokens.js';
 
 const loginGoogle = async (req, res) => {
   const { uid, token } = req.body;
@@ -24,7 +24,7 @@ const loginGoogle = async (req, res) => {
 
       await new Listing({ 
         uid: uid,
-        images: []
+        items: []
       }).save();
     } catch (error) {
       console.log("@@", error.message)
@@ -121,8 +121,12 @@ const getUserProfile = async (req, res) => {
   res.status(200).json({ status: 'OK', message: '', data: { profile } });
 };
 
-exports.loginGoogle = loginGoogle;
-exports.refreshAccessToken = refreshAccessToken;
-exports.updateLocation = updateLocation;
-exports.getUserProfile = getUserProfile;
+const usersControllers = Object.freeze({
+  loginGoogle,
+  refreshAccessToken,
+  updateLocation,
+  getUserProfile
+})
+
+export default usersControllers
 

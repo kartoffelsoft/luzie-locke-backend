@@ -1,9 +1,8 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+import mongoose from 'mongoose';
 
-const listingSchema = new Schema({
+const listingSchema = new mongoose.Schema({
   uid: { type: String, required: true, ref: 'users' },
   items: { type: [ mongoose.Types.ObjectId ], ref: 'items' } //[ { type: mongoose.Schema.Types.ObjectId, ref: 'items' } ],
 });
 
-module.exports = mongoose.model('listings', listingSchema);
+export default mongoose.model('listings', listingSchema);
