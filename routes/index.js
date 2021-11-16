@@ -1,5 +1,5 @@
 import usersRoutes from './users-routes.js';
-import itemRoutes from './items-routes.js';
+import itemsRoutes from './items-routes.js';
 
-export { usersRoutes, itemRoutes };
+export { usersRoutes, itemsRoutes };
 

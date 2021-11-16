@@ -16,15 +16,16 @@ function makeExpressCallback(controller) {
 
     controller(httpRequest)
       .then(httpResponse => {
-        if(httpResponse.headers) {
-          res.set(httpResponse.headers)
-        }
-        res.type('json')
-        res.status(httpResponse.statusCode).send(httpResponse.body)
+        console.log(httpResponse)
+        res.status(httpResponse.statusCode).json(httpResponse.body)
       })
-      .catch(e => res.status(500).send({ 
-        error: 'An unknown error occurred.' 
-      }))
+      .catch(e => {
+        res.status(500).json({ 
+          success: false,
+          message: 'An unknown error occurred.',
+          data: null
+        })
+      })
   }
 }
 

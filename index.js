@@ -7,7 +7,7 @@ import http from 'http'
 import mongoose from 'mongoose'
 import cors from 'cors';
 
-import { usersRoutes, itemRoutes } from './routes/index.js';
+import { usersRoutes, itemsRoutes } from './routes/index.js';
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
@@ -31,4 +31,5 @@ app.get('/ping', (req, res) => {
 const server = http.createServer(app);
 
 const PORT = process.env.PORT || 5000;
+
 server.listen(PORT);
