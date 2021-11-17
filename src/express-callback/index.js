@@ -16,7 +16,6 @@ function makeExpressCallback(controller) {
 
     controller(httpRequest)
       .then(httpResponse => {
-        console.log(httpResponse)
         res.status(httpResponse.statusCode).json(httpResponse.body)
       })
       .catch(e => {

@@ -24,8 +24,7 @@ const loginGoogle = async (req, res) => {
         items: []
       }).save();
     } catch (error) {
-      console.log("@@", error.message)
-      return res.status(500).json({ status: 'NOK', message: error.message, data: null });
+      return res.status(500).json({ success: false, message: error.message, data: null });
     }
   }
 
@@ -45,10 +44,10 @@ const loginGoogle = async (req, res) => {
       user: profile._id
     }).save();
   } catch (error) {
-    return res.status(500).json({ status: 'NOK', message: error.message, data: null });
+    return res.status(500).json({ success: false, message: error.message, data: null });
   }
 
-  res.status(200).json({ status: 'OK', message: '', data: { profile, accessToken, refreshToken } });
+  res.status(200).json({ success: true, message: '', data: { profile, accessToken, refreshToken } });
 };
 
 const refreshAccessToken = async (req, res) => {
@@ -81,11 +80,11 @@ const updateLocation = async (req, res) => {
   try {
     profile = await User.findOne({ _id: req.uid });
   } catch (error) {
-    return res.status(500).json({ status: 'NOK', message: error.message });
+    return res.status(500).json({ success: false, message: error.message });
   }
 
   if (!profile) {
-    return res.status(500).json({ status: 'NOK', message: 'User not found' });
+    return res.status(500).json({ success: false, message: 'User not found' });
   }
 
   profile.location.name = name;
@@ -97,7 +96,7 @@ const updateLocation = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 
-  res.status(200).json({ status: 'OK', message: '', data: { profile } });
+  res.status(200).json({ success: true, message: '', data: { profile } });
 };
 
 const getUserProfile = async (req, res) => {
@@ -108,14 +107,14 @@ const getUserProfile = async (req, res) => {
   try {
     profile = await Users.findOne({ _id: id });
   } catch (error) {
-    return res.status(500).json({ status: 'NOK', message: error.message, data: null });
+    return res.status(500).json({ success: false, message: error.message, data: null });
   }
 
   if (!profile) {
-    return res.status(500).json({ status: 'NOK', message:  'User not found', data: null });
+    return res.status(500).json({ success: false, message:  'User not found', data: null });
   }
 
-  res.status(200).json({ status: 'OK', message: '', data: { profile } });
+  res.status(200).json({ success: true, message: '', data: { profile } });
 };
 
 const usersControllers = Object.freeze({

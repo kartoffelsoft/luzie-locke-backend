@@ -4,10 +4,9 @@ import makeGetUser from './get-user.js'
 
 const getUser = makeGetUser({ readUser: userUseCases.readUser })
   
-const userController = Object.freeze({
+export default Object.freeze({
   getUser
 })
-  
-export default userController
+
 export { getUser }
   

@@ -17,7 +17,7 @@ const getRecentItems = async (req, res) => {
       select: { 'location.name': 1 }
     });
   } catch (error) {
-    return res.status(500).json({ status: 'NOK', message: error.message, data: null });
+    return res.status(500).json({ success: false, message: error.message, data: null });
   }
 
   if (endIndex < await Items.countDocuments()) {
@@ -34,7 +34,7 @@ const getRecentItems = async (req, res) => {
     };
   }
 
-  res.status(200).json({ status: 'OK', message: '', data: { items: results.results, next: results.next, previous: results.previous } });
+  res.status(200).json({ success: true, message: '', data: { items: results.results, next: results.next, previous: results.previous } });
 };
 
 const getHotItems = async (req, res) => {
@@ -106,10 +106,10 @@ const getItem = async (req, res) => {
 			{ new: true }
 		).populate('user');
   } catch (error) {
-    return res.status(500).json({ status: 'NOK', message: error.message, data: null });
+    return res.status(500).json({ success: false, message: error.message, data: null });
   }
 
-  res.status(200).json({ status: 'OK', message: '', data: { item } });
+  res.status(200).json({ success: true, message: '', data: { item } });
 };
 
 const createItem = async (req, res) => {
@@ -119,10 +119,10 @@ const createItem = async (req, res) => {
   try {
     listing = await Listings.findOne({ uid: req.uid }) 
     if(!listing) {
-      return res.status(404).json({ status: 'NOK', message: 'User not found.', data: null });
+      return res.status(404).json({ success: false, message: 'User not found.', data: null });
     }
   } catch (error) {
-    return res.status(500).json({ status: 'NOK', message: error.message, data: null });
+    return res.status(500).json({ success: false, message: error.message, data: null });
   }
 
   const item = new Items({
@@ -141,10 +141,10 @@ const createItem = async (req, res) => {
     await listing.save({ session });
     await session.commitTransaction();
   } catch (error) {
-    return res.status(500).json({ status: 'NOK', message: error.message, data: null });
+    return res.status(500).json({ success: false, message: error.message, data: null });
   }
 
-  res.status(201).json({ status: 'OK', message: '', data: null });
+  res.status(201).json({ success: true, message: '', data: null });
 };
 
 const updateItem = async (req, res) => {
