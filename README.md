@@ -21,8 +21,8 @@ POST api/login/google
 ## Response
 ```
 { 
-  success = true,             // or false
-  message = '',               // extra message string. Mostly an error message
-  data = { user = { ... } }   // null if error occurred or not found
+  success = true,       // or false
+  message = '',         // extra message string. Mostly an error message
+  data = { ... }        // null if error occurred or not found
 }
 ```
