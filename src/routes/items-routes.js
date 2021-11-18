@@ -4,7 +4,7 @@ import auth from '../middleware/auth.js'
 import itemsControllers from '../controllers/items-controllers.js'
 
 import itemController  from '../controllers/item/index.js'
-import { makeExpressCallback } from '../express-callback/index.js';
+import { makeExpressCallback } from '../utils/express-callback/index.js';
 
 const router = express.Router();
 

@@ -7,7 +7,7 @@ import http from 'http'
 import mongoose from 'mongoose'
 import cors from 'cors';
 
-import { usersRoutes, itemsRoutes, loginRoutes } from './routes/index.js';
+import { usersRoutes, itemsRoutes, authRoutes } from './routes/index.js';
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
@@ -23,7 +23,7 @@ app.use(cors());
 
 app.use('/api/users', usersRoutes);
 app.use('/api/items', itemsRoutes);
-app.use('/api/login', loginRoutes);
+app.use('/api/auth', authRoutes);
 
 app.get('/ping', (req, res) => {
   return res.status(200).json('succeed');

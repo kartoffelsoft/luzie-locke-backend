@@ -2,7 +2,7 @@ import { ObjectId } from 'mongodb'
 
 export default function makeItemsDatabase ({ makeDatabase }) {
 
-  async function findById ({ id: _id }) {
+  async function findById({ id: _id }) {
     const database = await makeDatabase()
     const result = await database.collection('items').aggregate([
       {

@@ -13,9 +13,9 @@ GET api/items
 GET api/items/:id
 ```
 
-### login
+### auth
 ```
-POST api/login/google
+POST api/auth/google
 ```
 
 ## Response

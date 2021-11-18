@@ -1,6 +1,6 @@
 import usersRoutes from './users-routes.js';
 import itemsRoutes from './items-routes.js';
-import loginRoutes from './login-routes.js';
+import authRoutes from './auth-routes.js';
 
-export { usersRoutes, itemsRoutes, loginRoutes };
+export { usersRoutes, itemsRoutes, authRoutes };
 
