@@ -1,20 +1,16 @@
 
-import mongodb from 'mongodb';
+const mongodb = require('mongodb');
 
 let databaseClient;
 
-export default async function makeDatabase() {
+module.exports = async function makeDatabase() {
   if(databaseClient) {
-    console.log("@@22")
     return databaseClient.db()
   }
 
   try {
-    console.log("Opening..", process.env.MONGO_URI)
     databaseClient = await mongodb.MongoClient.connect(process.env.MONGO_URI)
-    console.log("OPENPOOE")
   } catch(error) {
-    console.log("@@@@")
     throw Error('Error connecting MongoDB.');
   }
 

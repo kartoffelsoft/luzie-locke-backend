@@ -1,6 +1,6 @@
-import { MongoMemoryServer } from 'mongodb-memory-server'
+const { MongoMemoryServer } = require('mongodb-memory-server')
 
-export default async () => {
+module.exports = async () => {
   const mongod = await MongoMemoryServer.create();
   const uri = mongod.getUri()
 

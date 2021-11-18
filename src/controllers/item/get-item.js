@@ -1,4 +1,4 @@
-export default function makeGetItem({ readItem }) {
+module.exports = function makeGetItem({ readItem }) {
   return async function getItem(httpRequest) {
     try {
       const item = await readItem({ id: httpRequest.params.id })

@@ -1,6 +1,6 @@
-import cuid from 'cuid'
+const cuid = require('cuid')
 
-export default Object.freeze({
+module.exports = Object.freeze({
   make: cuid,
   isValid: cuid.isCuid
 })

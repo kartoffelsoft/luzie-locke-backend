@@ -1,13 +1,9 @@
-import makeReadItem from './read-item.js'
+const makeReadItem = require('./read-item.js')
 
-import { itemsDatabase } from '../../database-access/index.js'
+const { itemsDatabase } = require('../../database-access')
 
 const readItem = makeReadItem({ itemsDatabase })
 
-export default Object.freeze({
+module.exports = Object.freeze({
   readItem
 })
-
-export {
-  readItem
-}

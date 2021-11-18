@@ -1,7 +1,11 @@
-import Users from './Users.js';
-import Items from './Items.js';
-import Listings from './Listings.js';
-import RefreshTokens from './RefreshTokens.js';
+const Users = require('./Users.js');
+const Items = require('./Items.js');
+const Listings = require('./Listings.js');
+const RefreshTokens = require('./RefreshTokens.js');
 
-export { Users, Items, Listings, RefreshTokens };
-
+module.exports = Object.freeze({ 
+  Users, 
+  Items, 
+  Listings, 
+  RefreshTokens 
+});

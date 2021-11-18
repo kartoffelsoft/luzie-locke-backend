@@ -1,12 +1,9 @@
-// import itemUseCases from '../../usecases/item/index.js'
+// const itemUseCases = require('../../usecases/item')
 
-// import makePostAuth from './post-auth.js'
+// const makePostAuth = require('./post-auth.js')
 
 const postAuth = () => {}
   
-export default Object.freeze({
+module.exports = Object.freeze({
   postAuth,
 })
-
-export { postAuth }
-  

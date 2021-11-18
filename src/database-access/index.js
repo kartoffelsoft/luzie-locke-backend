@@ -1,13 +1,11 @@
+const makeDatabase = require('../database')
+const makeUsersDatabase = require('./users-database.js')
+const makeItemsDatabase = require('./items-database.js')
 
-import makeDatabase from '../database/index.js'
-import makeUsersDatabase from './users-database.js'
-import makeItemsDatabase from './items-database.js'
+let usersDatabase = makeUsersDatabase({ makeDatabase });
+let itemsDatabase = makeItemsDatabase({ makeDatabase });
 
-let usersDatabase = makeUsersDatabase({ makeDatabase })
-let itemsDatabase = makeItemsDatabase({ makeDatabase })
-
-
-export {
+module.exports = Object.freeze({
   usersDatabase,
   itemsDatabase
-}
+})

@@ -1,14 +1,10 @@
-import makeUpdateLocation from './update-location.js'
+const makeUpdateLocation = require('./update-location.js');
 
-import { usersDatabase } from '../../../database-access/index.js'
-import { makeUser } from '../../../database-model'
+const { usersDatabase } = require('../../../database-access');
+const { makeUser } = require('../../../database-model');
 
 const updateLocation = makeUpdateLocation({ usersDatabase, makeUser })
 
-export default Object.freeze({
+module.exports = Object.freeze({
   updateLocation
 })
-
-export {
-  updateLocation
-}

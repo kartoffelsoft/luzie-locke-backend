@@ -1,4 +1,4 @@
-export default function makeGetUser({ readUser }) {
+module.exports = function makeGetUser({ readUser }) {
   return async function getUser(httpRequest) {
     try {
       const user = await readUser({ id: httpRequest.params.id })

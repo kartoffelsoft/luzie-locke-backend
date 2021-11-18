@@ -28,6 +28,6 @@ function makeExpressCallback(controller) {
   }
 }
 
-export {
+module.exports = {
   makeExpressCallback
 }

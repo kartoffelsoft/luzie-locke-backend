@@ -1,6 +1,9 @@
-import usersRoutes from './users-routes.js';
-import itemsRoutes from './items-routes.js';
-import authRoutes from './auth-routes.js';
+const usersRoutes = require('./users-routes.js');
+const itemsRoutes = require('./items-routes.js');
+const authRoutes = require('./auth-routes.js');
 
-export { usersRoutes, itemsRoutes, authRoutes };
-
+module.exports = Object.freeze({ 
+  usersRoutes, 
+  itemsRoutes, 
+  authRoutes 
+});

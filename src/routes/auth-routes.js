@@ -1,10 +1,10 @@
-import express from 'express';
+const express = require('express');
 
-import authGoogleController  from '../controllers/auth-google/index.js'
-import { makeExpressCallback } from '../utils/express-callback/index.js';
+const authGoogleController = require('../controllers/auth-google');
+const { makeExpressCallback } = require('../utils/express-callback');
 
 const router = express.Router();
 
 router.post('/google', makeExpressCallback(authGoogleController.postLogin));
 
-export default router;
+module.exports = router;

@@ -1,11 +1,11 @@
-import express from 'express';
+const express = require('express');
 
-import auth from '../middleware/auth.js';
-import usersControllers from '../controllers/users-controllers.js';
+const auth = require('../middleware/auth.js');
+const usersControllers = require('../controllers/users-controllers.js');
 
-import userController from '../controllers/user/index.js'
-import locationController from '../controllers/user/index.js'
-import { makeExpressCallback } from '../utils/express-callback/index.js';
+const userController = require('../controllers/user');
+const locationController = require('../controllers/user');
+const { makeExpressCallback } = require('../utils/express-callback');
 
 const router = express.Router()
 
@@ -16,4 +16,4 @@ router.post('/login/refresh', usersControllers.refreshAccessToken);
 
 router.patch('/location', auth, makeExpressCallback(locationController.patchLocation));
 
-export default router;
+module.exports = router;

@@ -1,12 +1,8 @@
-import idMaker from '../utils/id-maker.js'
-import buildMakeUser from './user.js'
+const idMaker = require('../utils/id-maker.js')
+const buildMakeUser = require('./user.js')
 
 const makeUser = buildMakeUser({ idMaker })
 
-export default Object.freeze({
+module.exports = Object.freeze({
   makeUser
 })
-
-export {
-  makeUser
-}

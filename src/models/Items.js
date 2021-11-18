@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const itemSchema = new mongoose.Schema({
   user: { type: String, required: true, ref: 'users' },
@@ -15,4 +15,4 @@ const itemSchema = new mongoose.Schema({
   createdAt: { type: Date, default: new Date() },
 });
 
-export default mongoose.model('items', itemSchema);
+module.exports = mongoose.model('items', itemSchema);

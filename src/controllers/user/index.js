@@ -1,12 +1,8 @@
-import userUseCases from '../../usecases/user/index.js'
+const userUseCases = require('../../usecases/user');
+const makeGetUser = require('./get-user.js');
 
-import makeGetUser from './get-user.js'
-
-const getUser = makeGetUser({ readUser: userUseCases.readUser })
+const getUser = makeGetUser({ readUser: userUseCases.readUser });
   
-export default Object.freeze({
+module.exports = Object.freeze({
   getUser
 })
-
-export { getUser }
-  

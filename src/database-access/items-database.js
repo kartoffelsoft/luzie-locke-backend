@@ -1,6 +1,6 @@
-import { ObjectId } from 'mongodb'
+const { ObjectId } = require('mongodb')
 
-export default function makeItemsDatabase ({ makeDatabase }) {
+module.exports = function makeItemsDatabase ({ makeDatabase }) {
 
   async function findById({ id: _id }) {
     const database = await makeDatabase()

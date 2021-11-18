@@ -1,4 +1,4 @@
-export default function makePatchLocation({ updateLocation }) {
+module.exports = function makePatchLocation({ updateLocation }) {
   return async function patchLocation(httpRequest) {
     try {
       const user = await updateLocation({ 

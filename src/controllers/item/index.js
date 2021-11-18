@@ -1,12 +1,9 @@
-import itemUseCases from '../../usecases/item/index.js'
+const itemUseCases = require('../../usecases/item')
 
-import makeGetItem from './get-item.js'
+const makeGetItem = require('./get-item.js')
 
 const getItem = makeGetItem({ readItem: itemUseCases.readItem })
   
-export default Object.freeze({
+module.exports = Object.freeze({
   getItem,
 })
-
-export { getItem }
-  

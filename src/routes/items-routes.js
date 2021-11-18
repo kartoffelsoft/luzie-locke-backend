@@ -1,10 +1,10 @@
-import express from 'express';
+const express = require('express');
 
-import auth from '../middleware/auth.js'
-import itemsControllers from '../controllers/items-controllers.js'
+const auth = require('../middleware/auth.js');
+const itemsControllers = require('../controllers/items-controllers.js');
 
-import itemController  from '../controllers/item/index.js'
-import { makeExpressCallback } from '../utils/express-callback/index.js';
+const itemController = require('../controllers/item');
+const { makeExpressCallback } = require('../utils/express-callback');
 
 const router = express.Router();
 
@@ -20,4 +20,4 @@ router.patch('/:id/like', auth, itemsControllers.updateLike);
 
 router.delete('/:id', auth, itemsControllers.deleteItem);
 
-export default router;
+module.exports = router;

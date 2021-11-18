@@ -1,13 +1,9 @@
-import makeReadUser from './read-user.js'
+const makeReadUser = require('./read-user.js')
 
-import { usersDatabase } from '../../database-access/index.js'
+const { usersDatabase } = require('../../database-access')
 
 const readUser = makeReadUser({ usersDatabase })
 
-export default Object.freeze({
+module.exports = Object.freeze({
   readUser
 })
-
-export {
-  readUser
-}

@@ -1,12 +1,11 @@
-export default function makeUsersDatabase ({ makeDatabase }) {
+const idMaker = require('../utils/id-maker')
 
-  async function insert ({ id: _id, ...data }) {
+module.exports = function makeUsersDatabase ({ makeDatabase }) {
+
+  async function insert ({ id: _id = idMaker.make(), ...data }) {
     const database = await makeDatabase()
     const result = await database.collection('users').insertOne({ _id, ...data })
-    console.log(result)
-    //{ acknowledged: true, insertedId: 'id' }
-    // const { _id: id, ...insertedData } = result.ops[0]
-    return { id: _id, ...data  }
+    return { id: result.insertedId, ...data  }
   }
 
   async function findById({ id: _id }) {

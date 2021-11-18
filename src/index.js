@@ -1,13 +1,12 @@
 
-import dotenv from 'dotenv'
-dotenv.config()
+require('dotenv').config();
 
-import express from 'express'
-import http from 'http'
-import mongoose from 'mongoose'
-import cors from 'cors';
+const express = require('express');
+const http = require('http');
+const mongoose = require('mongoose');
+const cors = require('cors');
 
-import { usersRoutes, itemsRoutes, authRoutes } from './routes/index.js';
+const { usersRoutes, itemsRoutes, authRoutes } = require('./routes');
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,

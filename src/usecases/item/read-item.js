@@ -1,4 +1,4 @@
-export default function makeReadItem ({ itemsDatabase }) {
+module.exports = function makeReadItem ({ itemsDatabase }) {
   return async function readUser ({ id } = {}) {
     if (!id) {
       throw new Error('Missing mandatory parameters: id')

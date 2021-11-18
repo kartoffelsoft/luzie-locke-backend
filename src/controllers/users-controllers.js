@@ -1,7 +1,7 @@
-import axios from 'axios';
-import jwt from 'jsonwebtoken';
+const axios = require('axios');
+const jwt = require('jsonwebtoken');
 
-import { Users, Listings, RefreshTokens } from '../models/index.js' 
+const { Users, Listings, RefreshTokens } = require('../models')
 
 const loginGoogle = async (req, res) => {
   const { uid, token } = req.body;
@@ -117,12 +117,9 @@ const getUserProfile = async (req, res) => {
   res.status(200).json({ success: true, message: '', data: { profile } });
 };
 
-const usersControllers = Object.freeze({
+module.exports = Object.freeze({
   loginGoogle,
   refreshAccessToken,
   updateLocation,
   getUserProfile
 })
-
-export default usersControllers
-

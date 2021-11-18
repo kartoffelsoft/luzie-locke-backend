@@ -1,20 +1,15 @@
-// const makeDatabase = require('../database/index.js');
-// const makeUsersDatabase = require('./users-database.js')
-// const UsbDriver = require('../UsbDriver');
-import makeDatabase from '../database/index.js'
-import makeUsersDatabase from './users-database.js'
+const makeDatabase = require('../database')
+const makeUsersDatabase = require('./users-database.js')
 
 describe('users database', () => {
 
   let usersDatabase
 
   beforeEach(async () => {
-    console.log("@@")
     usersDatabase = makeUsersDatabase({ makeDatabase })
   })
 
   it('finds an user by id', async () => {
-    let name = 'hames'
     const actual = {     
       id: 'id',
       subId: 'subId',
@@ -30,7 +25,6 @@ describe('users database', () => {
       }
     }
 
-    // let usersDatabase = makeUsersDatabase({ makeDatabase })
     await usersDatabase.insert(actual)
 
     const found = await usersDatabase.findById({ id: actual.id })

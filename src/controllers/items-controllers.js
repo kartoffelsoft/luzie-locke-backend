@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
-import { Items, Users, Listings } from '../models/index.js';
+const { Items, Users, Listings } = require('../models');
 
 const getRecentItems = async (req, res) => {
   const page = parseInt(req.query.page);
@@ -165,7 +165,7 @@ const deleteItem = async (req, res) => {
   res.status(200).json({});
 };
 
-const itemsControllers = Object.freeze({
+module.exports = Object.freeze({
   getRecentItems,
   getHotItems,
   getGarageItems,
@@ -175,5 +175,3 @@ const itemsControllers = Object.freeze({
   updateLike,
   deleteItem
 })
-
-export default itemsControllers

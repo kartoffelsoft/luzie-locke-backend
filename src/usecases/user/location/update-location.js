@@ -1,4 +1,4 @@
-export default function makeUpdateLocation ({ usersDatabase, makeUser }) {
+module.exports = function makeUpdateLocation ({ usersDatabase, makeUser }) {
   return async function updateLocation ({ id, name, lat, lng } = {}) {
     if (!id || !name || !lat || !lng) {
       throw new Error('Missing mandatory parameters: id, name, lat, lng')

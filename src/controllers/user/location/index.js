@@ -1,11 +1,8 @@
-import userUseCases from '../../usecases/user/index.js'
-
-import makePatchLocation from './patch-location.js'
+const locatiuonUseCases = require('../../usecases/user/location')
+const makePatchLocation = require('./patch-location.js')
 
 const patchLocation = makePatchLocation({ updateLocation: locatiuonUseCases.updateLocation })
   
-export default Object.freeze({
+module.exports = Object.freeze({
   patchLocation
 })
-
-export { patchLocation }
