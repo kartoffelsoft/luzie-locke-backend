@@ -1,34 +1,33 @@
 const makeDatabase = require('../database')
 const makeUsersDatabase = require('./users-database.js')
+const { makeFakeUser } = require('../utils/test/fake-models')
 
 describe('users database', () => {
-
   let usersDatabase
 
   beforeEach(async () => {
     usersDatabase = makeUsersDatabase({ makeDatabase })
   })
 
-  it('finds an user by id', async () => {
-    const actual = {     
-      id: 'id',
-      subId: 'subId',
-      name: 'name',
-      email: 'email',
-      reputation: 1,
-      imageUrl: 'imageUrl',
-      proximity: 2,
-      locationName: 'locationName',
-      locationCoordinates: {
-        type: 'Point', 
-        coordinates: [50, 50]
-      }
-    }
+  it('should insert an user', async () => {
+    const user = makeFakeUser()
+    const result = await usersDatabase.insert(user)
+    expect(result).toEqual(user)
+  })
 
-    await usersDatabase.insert(actual)
+  it('should find an user by id', async () => {
+    const user = makeFakeUser()
+    await usersDatabase.insert(user)
+    const found = await usersDatabase.findById({ id: user.id })
+    expect(found).toEqual(user)
+  })
 
-    const found = await usersDatabase.findById({ id: actual.id })
-    expect(found).toEqual(actual)
-    expect(true).toEqual(true)
+  it('should update an user', async () => {
+    const user = makeFakeUser()
+    await usersDatabase.insert(user)
+
+    user.locationName = 'Frankfurt'
+    const updated = await usersDatabase.update(user)
+    expect(updated).toEqual(user)
   })
 })
