@@ -1,19 +1,19 @@
-export default function buildMakeUser(idMaker) {
+function buildMakeUser() {
   return function ({
-    id = idMaker.make(),
+    id,
     subId,
     name,
-    email,
+    email = '',
     reputation = 0,
     imageUrl = '',
     proximity = 100,
     locationName = '',
     locationCoordinates = {
-      type: 'Point', coordinates = [0, 0]
+      type: 'Point', coordinates: [0, 0]
     }
   } = {}) {
-    if (!idMaker.isValid(id)) {
-      throw new Error('Invalid id.')
+    if (!id) {
+      throw new Error('User data must have an id.')
     }
     if (!subId) {
       throw new Error('User data must have an subId.')
@@ -35,3 +35,5 @@ export default function buildMakeUser(idMaker) {
     })
   }
 }
+
+module.exports = buildMakeUser

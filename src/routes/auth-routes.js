@@ -5,6 +5,6 @@ const { makeExpressCallback } = require('../utils/express-callback');
 
 const router = express.Router();
 
-router.post('/google', makeExpressCallback(authGoogleController.postLogin));
+router.post('/google', makeExpressCallback(authGoogleController.postAuth));
 
 module.exports = router;

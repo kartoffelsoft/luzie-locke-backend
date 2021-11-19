@@ -1,4 +1,4 @@
-module.exports = function makeReadUser ({ usersDatabase }) {
+function makeReadUser ({ usersDatabase }) {
   return async function readUser ({ id } = {}) {
     if (!id) {
       throw new Error('Missing mandatory parameters: id')
@@ -8,3 +8,5 @@ module.exports = function makeReadUser ({ usersDatabase }) {
     return user
   }
 }
+
+module.exports = makeReadUser

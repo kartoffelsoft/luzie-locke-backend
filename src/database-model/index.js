@@ -1,7 +1,7 @@
-const idMaker = require('../utils/id-maker.js')
+const idMaker = require('../utils/id-maker')
 const buildMakeUser = require('./user.js')
 
-const makeUser = buildMakeUser({ idMaker })
+const makeUser = buildMakeUser()
 
 module.exports = Object.freeze({
   makeUser

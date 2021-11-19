@@ -11,7 +11,7 @@ const router = express.Router()
 
 router.get('/:id', makeExpressCallback(userController.getUser));
 
-router.post('/login/google', usersControllers.loginGoogle);
+// router.post('/login/google', usersControllers.loginGoogle);
 router.post('/login/refresh', usersControllers.refreshAccessToken);
 
 router.patch('/location', auth, makeExpressCallback(locationController.patchLocation));
