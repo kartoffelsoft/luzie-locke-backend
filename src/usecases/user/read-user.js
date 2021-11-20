@@ -1,6 +1,6 @@
 function makeReadUser ({ usersDatabase }) {
   return async function readUser ({ uid } = {}) {
-    if (!id) {
+    if (!uid) {
       throw new Error('Missing mandatory parameters: id')
     }
 

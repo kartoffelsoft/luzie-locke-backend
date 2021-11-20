@@ -11,7 +11,7 @@ module.exports = function makeCreateItem ({ usersDatabase, itemsDatabase, makeIt
     }
 
     const newItem = makeItem({
-      user,
+      user: user.id,
       title,
       price,
       description,
@@ -19,8 +19,6 @@ module.exports = function makeCreateItem ({ usersDatabase, itemsDatabase, makeIt
       location: user.location
     });
      
-    console.log("@", newItem)
-
     return await itemsDatabase.insert({
       id: newItem.getId(),
       user: newItem.getUser(),

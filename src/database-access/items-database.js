@@ -1,5 +1,3 @@
-const { ObjectId } = require('mongodb')
-
 module.exports = function makeItemsDatabase ({ makeDatabase }) {
 
   async function insert ({ id: _id = idMaker.make(), ...data }) {
@@ -54,7 +52,6 @@ module.exports = function makeItemsDatabase ({ makeDatabase }) {
 
   async function findByCoordinates({ lng, lat, radius }) {
     const database = await makeDatabase()
-
     const result = await database.collection('items').aggregate([
       {
         $match: {
@@ -92,12 +89,6 @@ module.exports = function makeItemsDatabase ({ makeDatabase }) {
         }
       }
     ])
-
-    // const found = await result.toArray()
-
-    // if (found.length === 0) {
-    //   return null
-    // }
 
     return (await result.toArray()).map(({ _id: iid, user: { _id: uid, ...user}, ...found }) => ({
       id: iid,

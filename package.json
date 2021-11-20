@@ -8,7 +8,7 @@
     "npm": ">=7.10.0"
   },
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node src/database-setup.js && node src/index.js",
     "dev": "nodemon src/index.js",
     "test": "jest --watch --detectOpenHandles"
   },
