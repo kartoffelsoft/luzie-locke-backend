@@ -2,10 +2,10 @@ module.exports = function makePatchLocation({ updateLocation }) {
   return async function patchLocation(httpRequest) {
     try {
       const user = await updateLocation({ 
-        id: httpRequest.params.id,
-        name: httpRequest.body.name,
-        lat: httpRequest.body.lat,
+        uid: httpRequest.uid,
+        city: httpRequest.body.city,
         lng: httpRequest.body.lng,
+        lat: httpRequest.body.lat
       })
 
       return {

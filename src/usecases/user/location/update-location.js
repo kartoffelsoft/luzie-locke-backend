@@ -1,28 +1,28 @@
 module.exports = function makeUpdateLocation ({ usersDatabase, makeUser }) {
-  return async function updateLocation ({ id, name, lat, lng } = {}) {
-    if (!id || !name || !lat || !lng) {
-      throw new Error('Missing mandatory parameters: id, name, lat, lng')
+  return async function updateLocation ({ uid, city, lng, lat } = {}) {
+    if (!uid || !city || !lng || !lat) {
+      throw new Error('Missing mandatory parameters: uid, city, lng, lat')
     }
 
-    const existing = await usersDatabase.findById({ id })
+    const existing = await usersDatabase.findById({ id: uid })
 
     if(!existing) {
-      throw new RangeError('Comment not found.')
+      throw new RangeError('User not found.')
     }
 
     const user = makeUser({ 
       ...existing, 
-      locationName: name, 
-      locationCoordinates: {
+      city: city, 
+      location: {
         type: 'Point',
-        coordinates: [lat, lng]
+        coordinates: [lng, lat]
       }
     })
 
     const updated = await usersDatabase.update({
       id: user.getId(),
-      locationName: user.getLocatioName(),
-      locationCoordinates: user.getLocationCoordinates()
+      city: user.getCity(),
+      location: user.getLocation()
     })
     
     return { ...existing, ...updated }

@@ -4,6 +4,7 @@ function makeExpressCallback(controller) {
       body: req.body,
       query: req.query,
       params: req.params,
+      uid: req.uid,
       ip: req.ip,
       method: req.method,
       path: req.path,

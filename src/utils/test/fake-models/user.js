@@ -2,7 +2,7 @@ const faker = require('faker');
 const cuid = require('cuid');
 
 function makeFakeUser(overrides) {
-  const user = {
+  const base = {
     id: cuid(),
     subId: cuid(),
     name: faker.name.findName(),
@@ -10,8 +10,8 @@ function makeFakeUser(overrides) {
     reputation: faker.datatype.number(),
     imageUrl: faker.image.imageUrl(),
     proximity: faker.datatype.number(),
-    locationName: faker.address.city(),
-    locationCoordinates: {
+    city: faker.address.city(),
+    location: {
       type: 'Point', 
       coordinates: [
         faker.datatype.number(), 
@@ -21,7 +21,7 @@ function makeFakeUser(overrides) {
   };
 
   return {
-    ...user,
+    ...base,
     ...overrides
   };
 }

@@ -3,7 +3,7 @@ const mongodb = require('mongodb');
 
 let databaseClient;
 
-module.exports = async function makeDatabase() {
+async function makeDatabase() {
   if(databaseClient) {
     return databaseClient.db()
   }
@@ -16,3 +16,5 @@ module.exports = async function makeDatabase() {
 
   return databaseClient.db()
 }
+
+module.exports = makeDatabase

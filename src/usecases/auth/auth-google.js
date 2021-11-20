@@ -1,5 +1,5 @@
 function makeAuthGoogle({ googleAuthApi, usersDatabase, makeUser }) {
-  return async function authGoogle({ id, token } = {}) {
+  return async function authGoogle({ uid, token } = {}) {
     if(!token) {
       throw new Error('Missing mandatory parameters: token');
     }
@@ -10,11 +10,11 @@ function makeAuthGoogle({ googleAuthApi, usersDatabase, makeUser }) {
       throw new Error('Invalid token');
     }
 
-    const user = await usersDatabase.findById({ id });
+    const user = await usersDatabase.findById({ id: uid });
 
     if(!user) {
       const newUser = makeUser({
-        id: id,
+        id: uid,
         subId: data.sub,
         name: data.given_name,
         email: data.email,
@@ -29,8 +29,8 @@ function makeAuthGoogle({ googleAuthApi, usersDatabase, makeUser }) {
         reputation: newUser.getReputation(),
         imageUrl: newUser.getImageUrl(),
         proximity: newUser.getProximity(),
-        locationName: newUser.getLocationName(),
-        locationCoordinates: newUser.getLocationCoordinates()
+        city: newUser.getCity(),
+        location: newUser.getLocation()
       });
     }
 

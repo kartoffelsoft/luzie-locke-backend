@@ -4,7 +4,7 @@ const auth = require('../middleware/auth.js');
 const usersControllers = require('../controllers/users-controllers.js');
 
 const userController = require('../controllers/user');
-const locationController = require('../controllers/user');
+const locationController = require('../controllers/location');
 const { makeExpressCallback } = require('../utils/express-callback');
 
 const router = express.Router()

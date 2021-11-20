@@ -11,15 +11,15 @@ describe('users database', () => {
 
   it('should insert an user', async () => {
     const user = makeFakeUser()
-    const result = await usersDatabase.insert(user)
-    expect(result).toEqual(user)
+    const received = await usersDatabase.insert(user)
+    expect(received).toEqual(user)
   })
 
   it('should find an user by id', async () => {
     const user = makeFakeUser()
     await usersDatabase.insert(user)
-    const found = await usersDatabase.findById({ id: user.id })
-    expect(found).toEqual(user)
+    const received = await usersDatabase.findById({ id: user.id })
+    expect(received).toEqual(user)
   })
 
   it('should update an user', async () => {
@@ -27,7 +27,7 @@ describe('users database', () => {
     await usersDatabase.insert(user)
 
     user.locationName = 'Frankfurt'
-    const updated = await usersDatabase.update(user)
-    expect(updated).toEqual(user)
+    const received = await usersDatabase.update(user)
+    expect(received).toEqual(user)
   })
 })

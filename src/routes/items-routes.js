@@ -13,7 +13,7 @@ router.get('/hot', itemsControllers.getHotItems);
 router.get('/garage/', auth, itemsControllers.getGarageItems);
 router.get('/:id', makeExpressCallback(itemController.getItem));
 
-router.post('/', auth, itemsControllers.createItem);
+router.post('/', auth, makeExpressCallback(itemController.postItem));
 
 router.patch('/:id', auth, itemsControllers.updateItem);
 router.patch('/:id/like', auth, itemsControllers.updateLike);

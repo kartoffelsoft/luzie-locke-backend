@@ -11,6 +11,7 @@ PATCH api/users/location
 ```
 GET api/items
 GET api/items/:id
+GET api/items/search?q=[keyword]
 ```
 
 ### auth

@@ -1,5 +1,5 @@
 function buildMakeUser() {
-  return function ({
+  return function makeUser ({
     id,
     subId,
     name,
@@ -7,18 +7,18 @@ function buildMakeUser() {
     reputation = 0,
     imageUrl = '',
     proximity = 100,
-    locationName = '',
-    locationCoordinates = {
+    city = '',
+    location = {
       type: 'Point', coordinates: [0, 0]
     }
   } = {}) {
-    if (!id) {
+    if(!id) {
       throw new Error('User data must have an id.')
     }
-    if (!subId) {
+    if(!subId) {
       throw new Error('User data must have an subId.')
     }
-    if (!name) {
+    if(!name) {
       throw new Error('User data must have a name.')
     }
 
@@ -30,8 +30,8 @@ function buildMakeUser() {
       getReputation: () => reputation,
       getImageUrl: () => imageUrl,
       getProximity: () => proximity,
-      getLocationName: () => locationName,
-      getLocationCoordinates: () => locationCoordinates
+      getCity: () => city,
+      getLocation: () => location
     })
   }
 }

@@ -1,5 +1,5 @@
 module.exports = function makeReadItem ({ itemsDatabase }) {
-  return async function readUser ({ id } = {}) {
+  return async function readItem ({ id } = {}) {
     if (!id) {
       throw new Error('Missing mandatory parameters: id')
     }

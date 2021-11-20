@@ -2,7 +2,7 @@ module.exports = function makePostAuth({ authGoogle, issueAccessToken, issueRefr
   return async function postAuth(httpRequest) {
     try {
       const user = await authGoogle({ 
-        id: httpRequest.body.id, 
+        uid: httpRequest.body.id, 
         token: httpRequest.body.token 
       })
 
