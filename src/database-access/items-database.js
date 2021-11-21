@@ -33,6 +33,7 @@ module.exports = function makeItemsDatabase ({ makeDatabase }) {
           "counts": 1,
           "imageUrls": 1,
           "createdAt": 1,
+          "modifiedAt": 1,
           "user._id": 1,
           "user.city": 1,
           "user.imageUrl": 1
@@ -50,17 +51,30 @@ module.exports = function makeItemsDatabase ({ makeDatabase }) {
     return { id: iid, user: { id: uid, ...user}, ...info }
   }
 
-  async function findByCoordinates({ lng, lat, radius }) {
+  async function findByCoordinates({ cursor, limit, lng, lat, radius }) {
     const database = await makeDatabase()
     const result = await database.collection('items').aggregate([
       {
-        $match: {
-          location: { 
-            $geoWithin: {
+        $match: 
+        {
+          location: 
+          { 
+            $geoWithin: 
+            {
               $centerSphere: [ [lng, lat], radius / 6378.1 ]
             }
-          }
+          },
+          modifiedAt: 
+          { 
+            $lt: cursor 
+          } 
         }
+      },
+      {
+        $sort: { modifiedAt: -1 }
+      }, 
+      {
+        $limit: limit
       },
       {
         $lookup: {
@@ -83,6 +97,7 @@ module.exports = function makeItemsDatabase ({ makeDatabase }) {
           "counts": 1,
           "imageUrls": 1,
           "createdAt": 1,
+          "modifiedAt": 1,
           "user._id": 1,
           "user.city": 1,
           "user.imageUrl": 1
@@ -128,6 +143,7 @@ module.exports = function makeItemsDatabase ({ makeDatabase }) {
           "counts": 1,
           "imageUrls": 1,
           "createdAt": 1,
+          "modifiedAt": 1,
           "user._id": 1,
           "user.city": 1,
           "user.imageUrl": 1
@@ -142,24 +158,30 @@ module.exports = function makeItemsDatabase ({ makeDatabase }) {
     }))
   }
 
-  async function findByKeywordAndCoordinates({ keyword, lng, lat, radius }) {
+  async function findByKeywordAndCoordinates({ cursor, limit, keyword, lng, lat, radius }) {
     const database = await makeDatabase()
     const result = await database.collection('items').aggregate([
       {
         $match: {
           $text: {
             $search: keyword
-          }
-        }
-      },
-      {
-        $match: {
+          },
           location: { 
             $geoWithin: {
               $centerSphere: [ [lng, lat], radius / 6378.1 ]
             }
-          }
+          },
+          modifiedAt: 
+          { 
+            $lt: cursor 
+          } 
         }
+      },
+      {
+        $sort: { modifiedAt: -1 }
+      }, 
+      {
+        $limit: limit
       },
       {
         $lookup: {
@@ -182,6 +204,7 @@ module.exports = function makeItemsDatabase ({ makeDatabase }) {
           "counts": 1,
           "imageUrls": 1,
           "createdAt": 1,
+          "modifiedAt": 1,
           "user._id": 1,
           "user.city": 1,
           "user.imageUrl": 1

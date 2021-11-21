@@ -30,7 +30,8 @@ module.exports = function makeCreateItem ({ usersDatabase, itemsDatabase, makeIt
       state: newItem.getState(),
       buyer: newItem.getBuyer(),
       counts: newItem.getCounts(),
-      createdAt: newItem.getCreatedAt()
+      createdAt: newItem.getCreatedAt(),
+      modifiedAt: newItem.getModifiedAt()
     });
   }
 }

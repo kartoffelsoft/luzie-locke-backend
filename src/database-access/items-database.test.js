@@ -15,7 +15,8 @@ describe('users database', () => {
     await database
       .collection('items')
       .createIndexes([
-        { key: { title: 'text', description: 'text' }, name: 'text_idx' }
+        { key: { title: 'text', description: 'text' }, name: 'text_idx' },
+        { key: { modifiedAt: -1 }, name: 'modifiedAt_idx' }
       ])
   })
 
@@ -43,6 +44,7 @@ describe('users database', () => {
       counts: item.counts,
       imageUrls: item.imageUrls,
       createdAt: item.createdAt,
+      modifiedAt: item.modifiedAt,
       user: { 
         id: user.id,
         city: user.city,
@@ -66,31 +68,23 @@ describe('users database', () => {
     await usersDatabase.insert(user2)
     await usersDatabase.insert(user3)
 
-    const item1 = makeFakeItem({ user: user1.id, location: location1 })
-    const item2 = makeFakeItem({ user: user2.id, location: location2 })
-    const item3 = makeFakeItem({ user: user3.id, location: location3 })
+    const item1 = makeFakeItem({ user: user1.id, location: location1, modifiedAt: 1 })
+    const item2 = makeFakeItem({ user: user2.id, location: location2, modifiedAt: 2 })
+    const item3 = makeFakeItem({ user: user3.id, location: location3, modifiedAt: 3 })
 
     await itemsDatabase.insert(item1)
     await itemsDatabase.insert(item2)
     await itemsDatabase.insert(item3)
 
-    const received = await itemsDatabase.findByCoordinates({ lng: 10.011, lat: 11.011, radius: 5 })
+    const received = await itemsDatabase.findByCoordinates({ 
+      cursor: Number.MAX_VALUE,
+      limit: 5,
+      lng: 10.011, 
+      lat: 11.011, 
+      radius: 5
+    })
 
     let expected = [{ 
-      id: item1.id,
-      state: item1.state,
-      title: item1.title,
-      price: item1.price,
-      description: item1.description,
-      counts: item1.counts,
-      imageUrls: item1.imageUrls,
-      createdAt: item1.createdAt,
-      user: { 
-        id: user1.id,
-        city: user1.city,
-        imageUrl: user1.imageUrl
-      },
-    }, { 
       id: item3.id,
       state: item3.state,
       title: item3.title,
@@ -99,10 +93,26 @@ describe('users database', () => {
       counts: item3.counts,
       imageUrls: item3.imageUrls,
       createdAt: item3.createdAt,
+      modifiedAt: item3.modifiedAt,
       user: { 
         id: user3.id,
         city: user3.city,
         imageUrl: user3.imageUrl
+      }
+    }, { 
+      id: item1.id,
+      state: item1.state,
+      title: item1.title,
+      price: item1.price,
+      description: item1.description,
+      counts: item1.counts,
+      imageUrls: item1.imageUrls,
+      createdAt: item1.createdAt,
+      modifiedAt: item1.modifiedAt,
+      user: { 
+        id: user1.id,
+        city: user1.city,
+        imageUrl: user1.imageUrl
       }
     }]
 
@@ -133,6 +143,7 @@ describe('users database', () => {
       counts: item2.counts,
       imageUrls: item2.imageUrls,
       createdAt: item2.createdAt,
+      modifiedAt: item2.modifiedAt,
       user: { 
         id: user2.id,
         city: user2.city,
@@ -142,6 +153,7 @@ describe('users database', () => {
 
     expect(received).toEqual(expected)
   })
+
 
   it('should find items by radius and keyword', async () => {
     const location1 = { type: 'Point', coordinates: [ 10.001, 11.001 ] }
@@ -164,7 +176,14 @@ describe('users database', () => {
     await itemsDatabase.insert(item2)
     await itemsDatabase.insert(item3)
 
-    const received = await itemsDatabase.findByKeywordAndCoordinates({ keyword: "consectetuer", lng: 20.011, lat: 21.011, radius: 5 })
+    const received = await itemsDatabase.findByKeywordAndCoordinates({ 
+      cursor: Number.MAX_VALUE,
+      limit: 5,
+      keyword: "consectetuer",  
+      lng: 20.001, 
+      lat: 21.001, 
+      radius: 5, 
+    })
 
     let expected = [{ 
       id: item2.id,
@@ -175,6 +194,7 @@ describe('users database', () => {
       counts: item2.counts,
       imageUrls: item2.imageUrls,
       createdAt: item2.createdAt,
+      modifiedAt: item2.modifiedAt,
       user: { 
         id: user2.id,
         city: user2.city,

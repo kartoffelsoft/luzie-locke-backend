@@ -1,13 +1,23 @@
 module.exports = function makeGetItemList({ readItemList }) {
   return async function getItemList(httpRequest) {
+    let cursor = parseFloat(httpRequest.query.cursor)
+    let limit = parseInt(httpRequest.query.limit)
+
     try {
-      const itemList = await readItemList({ uid: httpRequest.uid })
+      const list = await readItemList({ 
+        uid: httpRequest.uid, 
+        cursor: cursor, 
+        limit: limit
+      })
+      
+      let nextCursor = list.length == limit ? list[list.length - 1].modifiedAt : -1
+
       return {
         statusCode: 200,
         body: {
           success: true,
           message: '',
-          data: { itemList }
+          data: { list, nextCursor: nextCursor }
         }
       }
     } catch(error) {

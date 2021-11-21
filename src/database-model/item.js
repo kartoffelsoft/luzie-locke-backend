@@ -10,7 +10,8 @@ function buildMakeItem({ idMaker }) {
     state = 'open',
     buyer = '',
     counts = { chat: 0, favorite: 0, view: 0},
-    createdAt = Date.now()
+    createdAt = Date.now(),
+    modifiedAt = createdAt
   } = {}) {
     if(!idMaker.isValid(id)) {
       throw new Error('Item data must have an id.')
@@ -45,7 +46,8 @@ function buildMakeItem({ idMaker }) {
       getState: () => state,
       getBuyer: () => buyer,
       getCounts: () => counts,
-      getCreatedAt: () => createdAt
+      getCreatedAt: () => createdAt,
+      getModifiedAt: () => modifiedAt
     })
   }
 }

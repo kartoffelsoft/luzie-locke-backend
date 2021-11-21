@@ -10,7 +10,8 @@ const makeDatabase = require('./database')
     .collection('items')
     .createIndexes([
       { key: { location: '2dsphere' }, name: 'location_idx' },
-      { key: { title: 'text', description: 'text' }, name: 'text_idx' }
+      { key: { title: 'text', description: 'text' }, name: 'text_idx' },
+      { key: { modifiedAt: -1 }, name: 'modifiedAt_idx' }
     ])
 
   console.log(result)

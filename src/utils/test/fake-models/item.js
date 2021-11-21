@@ -23,7 +23,8 @@ function makeFakeItem(overrides) {
       favorite: faker.datatype.number(), 
       view: faker.datatype.number()
     },
-    createdAt: Date.now()
+    createdAt: Date.now(),
+    modifiedAt: Date.now()
   };
 
   return {
