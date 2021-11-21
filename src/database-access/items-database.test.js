@@ -10,6 +10,13 @@ describe('users database', () => {
   beforeEach(async () => {
     usersDatabase = makeUsersDatabase({ makeDatabase })
     itemsDatabase = makeItemsDatabase({ makeDatabase })
+
+    const database = await makeDatabase()
+    await database
+      .collection('items')
+      .createIndexes([
+        { key: { title: 'text', description: 'text' }, name: 'text_idx' }
+      ])
   })
 
   it('should insert an item', async () => {
@@ -96,6 +103,40 @@ describe('users database', () => {
         id: user3.id,
         city: user3.city,
         imageUrl: user3.imageUrl
+      }
+    }]
+
+    expect(received).toEqual(expected)
+  })
+
+  it('should find items by keyword', async () => {
+    const user1 = makeFakeUser()
+    const user2 = makeFakeUser()
+
+    await usersDatabase.insert(user1)
+    await usersDatabase.insert(user2)
+
+    const item1 = makeFakeItem({ user: user1.id, description: 'Lorem ipsum dolor sit amet' })
+    const item2 = makeFakeItem({ user: user2.id, description: 'consectetuer adipiscing elit.' })
+
+    await itemsDatabase.insert(item1)
+    await itemsDatabase.insert(item2)
+
+    const received = await itemsDatabase.findByKeyword({ keyword: "consectetuer" })
+
+    let expected = [{ 
+      id: item2.id,
+      state: item2.state,
+      title: item2.title,
+      price: item2.price,
+      description: item2.description,
+      counts: item2.counts,
+      imageUrls: item2.imageUrls,
+      createdAt: item2.createdAt,
+      user: { 
+        id: user2.id,
+        city: user2.city,
+        imageUrl: user2.imageUrl
       }
     }]
 

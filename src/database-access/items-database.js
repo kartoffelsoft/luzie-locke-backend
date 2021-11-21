@@ -97,9 +97,55 @@ module.exports = function makeItemsDatabase ({ makeDatabase }) {
     }))
   }
 
+  async function findByKeyword({ keyword }) {
+    const database = await makeDatabase()    
+    const result = await database.collection('items').aggregate([
+      {
+        $match: {
+          $text: {
+            $search: keyword
+          }
+        }
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "user",
+          foreignField: "_id",
+          as: "user"
+        }
+      },
+      {
+        $unwind: "$user"
+      },
+      {
+        "$project": {
+          "_id": 1,
+          "state": 1,
+          "title": 1,
+          "price": 1,
+          "description": 1,
+          "counts": 1,
+          "imageUrls": 1,
+          "createdAt": 1,
+          "user._id": 1,
+          "user.city": 1,
+          "user.imageUrl": 1
+        }
+      }
+    ])
+
+    return (await result.toArray()).map(({ _id: iid, user: { _id: uid, ...user}, ...found }) => ({
+      id: iid,
+      user: { id: uid, ...user},
+      ...found
+    }))
+  }
+
   return Object.freeze({
     insert,
     findById,
-    findByCoordinates
+    findByCoordinates,
+    findByKeyword
   })
 }
