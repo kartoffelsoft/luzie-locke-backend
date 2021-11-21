@@ -9,6 +9,7 @@ const { makeExpressCallback } = require('../utils/express-callback');
 const router = express.Router();
 
 router.get('/', auth, makeExpressCallback(itemController.getItemList));
+// router.get('/search', auth, makeExpressCallback(itemController.getItemListSearch));
 router.get('/hot', itemsControllers.getHotItems);
 router.get('/garage/', auth, itemsControllers.getGarageItems);
 router.get('/:id', makeExpressCallback(itemController.getItem));

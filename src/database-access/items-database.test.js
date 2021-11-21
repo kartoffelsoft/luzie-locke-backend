@@ -142,4 +142,46 @@ describe('users database', () => {
 
     expect(received).toEqual(expected)
   })
+
+  it('should find items by radius and keyword', async () => {
+    const location1 = { type: 'Point', coordinates: [ 10.001, 11.001 ] }
+    const location2 = { type: 'Point', coordinates: [ 20.001, 21.001 ] }
+    const location3 = { type: 'Point', coordinates: [ 10.021, 11.021 ] }
+
+    const user1 = makeFakeUser({ location: location1 })
+    const user2 = makeFakeUser({ location: location2 })
+    const user3 = makeFakeUser({ location: location3 })
+
+    await usersDatabase.insert(user1)
+    await usersDatabase.insert(user2)
+    await usersDatabase.insert(user3)
+
+    const item1 = makeFakeItem({ user: user1.id, location: location1, description: 'Lorem ipsum dolor sit amet,' })
+    const item2 = makeFakeItem({ user: user2.id, location: location2, description: 'consectetuer adipiscing elit.' })
+    const item3 = makeFakeItem({ user: user3.id, location: location3, description: 'Aenean commodo ligula eget dolor.' })
+
+    await itemsDatabase.insert(item1)
+    await itemsDatabase.insert(item2)
+    await itemsDatabase.insert(item3)
+
+    const received = await itemsDatabase.findByKeywordAndCoordinates({ keyword: "consectetuer", lng: 20.011, lat: 21.011, radius: 5 })
+
+    let expected = [{ 
+      id: item2.id,
+      state: item2.state,
+      title: item2.title,
+      price: item2.price,
+      description: item2.description,
+      counts: item2.counts,
+      imageUrls: item2.imageUrls,
+      createdAt: item2.createdAt,
+      user: { 
+        id: user2.id,
+        city: user2.city,
+        imageUrl: user2.imageUrl
+      },
+    }]
+
+    expect(received).toEqual(expected)
+  })
 })
