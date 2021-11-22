@@ -32,11 +32,11 @@ POST api/auth/google
 ### Pagination
 ```
 { 
-  success = true,       // or false
-  message = '',         // extra message string. Mostly an error message
+  success = true,       
+  message = '',         
   data = { 
     list = [ ... ]
-    nextCursor = ...    // timestamp
+    nextCursor = ...    // timestamp = miliseconds since 1970
   }
 }
 ```
