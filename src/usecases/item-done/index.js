@@ -7,6 +7,6 @@ const readItemListByUser      = makeReadItemListByUser({ itemsDoneDatabase })
 const readItemListByBuyer     = makeReadItemListByBuyer({ itemsDoneDatabase })
 
 module.exports = Object.freeze({
-  readItemListByBuyer,
+  readItemListByUser,
   readItemListByBuyer
 })

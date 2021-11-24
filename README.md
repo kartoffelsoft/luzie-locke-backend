@@ -12,7 +12,8 @@ PATCH api/users/location
 GET api/items?cursor=...&limit=...
 GET api/items/search?q=...&cursor=...&limit=...
 GET api/items/user
-GET api/items/user/close
+GET api/items/user/sold
+GET api/items/user/bought
 GET api/items/:id
 ```
 
