@@ -3,7 +3,7 @@ const makeUsersDatabase = require('./users-database.js')
 const makeItemsDatabase = require('./items-database.js')
 const { makeFakeUser, makeFakeItem } = require('../utils/test/fake-models')
 
-describe('users database', () => {
+describe('items database', () => {
   let usersDatabase
   let itemsDatabase
 
