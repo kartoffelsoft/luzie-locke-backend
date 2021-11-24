@@ -11,6 +11,8 @@ const router = express.Router();
 
 router.get('/', auth, makeExpressCallback(itemController.getItemList));
 router.get('/search', auth, makeExpressCallback(searchController.getSearchList));
+router.get('/user', auth, makeExpressCallback(itemController.getItemListByUser));
+// router.get('/user/close', auth, makeExpressCallback(itemCloseController.getItemListByUser));
 
 router.get('/hot', itemsControllers.getHotItems);
 router.get('/garage/', auth, itemsControllers.getGarageItems);

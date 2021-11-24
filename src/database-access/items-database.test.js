@@ -35,7 +35,7 @@ describe('users database', () => {
 
     const received = await itemsDatabase.findById({ id: item.id })
 
-    let expected = { 
+    let expected = {
       id: item.id,
       state: item.state,
       title: item.title,
@@ -51,6 +51,39 @@ describe('users database', () => {
         imageUrl: user.imageUrl
       }
     }
+
+    expect(received).toEqual(expected)
+  })
+
+  it('should find items by user', async () => {
+    const user = makeFakeUser()
+    await usersDatabase.insert(user)
+
+    const item = makeFakeItem({ user: user.id })
+    await itemsDatabase.insert(item)
+
+    const received = await itemsDatabase.findByUser({ 
+      user: user.id,
+      cursor: Number.MAX_VALUE,
+      limit: 5
+    })
+
+    let expected = [{ 
+      id: item.id,
+      state: item.state,
+      title: item.title,
+      price: item.price,
+      description: item.description,
+      counts: item.counts,
+      imageUrls: item.imageUrls,
+      createdAt: item.createdAt,
+      modifiedAt: item.modifiedAt,
+      user: { 
+        id: user.id,
+        city: user.city,
+        imageUrl: user.imageUrl
+      }
+    }]
 
     expect(received).toEqual(expected)
   })
