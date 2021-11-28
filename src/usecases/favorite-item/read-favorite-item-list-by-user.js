@@ -1,7 +1,7 @@
 module.exports = function makeReadFavoriteItemListByUser({ favoriteItemsDatabase }) {
   return async function readFavoriteItemListByUser ({ user, cursor, limit } = {}) {
-    if (!uid || !limit || cursor == null) {
-      throw new Error('Missing mandatory parameters: uid, cursor, limit')
+    if (!user || !limit || cursor == null) {
+      throw new Error('Missing mandatory parameters: user, cursor, limit')
     }
 
     const favoriteItemList = await favoriteItemsDatabase.findByUser({ 
