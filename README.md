@@ -20,6 +20,7 @@ GET api/items/:id
 POST api/items
 POST api/items/user/favorite
 
+DELETE api/items/:id
 DELETE api/items/user/favorite/:id
 ```
 

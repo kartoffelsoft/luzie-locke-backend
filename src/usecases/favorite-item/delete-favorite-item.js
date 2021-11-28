@@ -6,9 +6,6 @@ module.exports = function makeDeleteFavoriteItem({ favoriteItemsDatabase }) {
       throw new Error('Missing mandatory parameters: user, item')
     }
      
-    return await favoriteItemsDatabase.remove({
-      user: user,
-      item: item
-    });
+    return await favoriteItemsDatabase.remove({ user, item });
   }
 }

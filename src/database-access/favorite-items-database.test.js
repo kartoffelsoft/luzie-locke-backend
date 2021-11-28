@@ -28,13 +28,6 @@ describe('favorite-items database', () => {
     expect(insertedCount).toEqual(1)
   })
 
-  it('should remove an favorite item', async () => {
-    const favoriteItem = makeFakeFavoriteItem()
-    await favoriteItemsDatabase.insert(favoriteItem)
-    let removedCount = await favoriteItemsDatabase.remove({ user: favoriteItem.user, item: favoriteItem.item })
-    expect(removedCount).toEqual(1)
-  })
-
   it('should find favorite items by user', async () => {
     const user = makeFakeUser()
     const item = makeFakeItem({ user: user.id })
@@ -69,4 +62,12 @@ describe('favorite-items database', () => {
 
     expect(received).toEqual(expected)
   })
+
+  it('should remove an favorite item', async () => {
+    const favoriteItem = makeFakeFavoriteItem()
+    await favoriteItemsDatabase.insert(favoriteItem)
+    let removedCount = await favoriteItemsDatabase.remove({ user: favoriteItem.user, item: favoriteItem.item })
+    expect(removedCount).toEqual(1)
+  })
+
 })

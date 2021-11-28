@@ -47,6 +47,7 @@ describe('items database', () => {
       modifiedAt: item.modifiedAt,
       user: { 
         id: user.id,
+        name: user.name,
         city: user.city,
         imageUrl: user.imageUrl
       }
@@ -236,5 +237,12 @@ describe('items database', () => {
     }]
 
     expect(received).toEqual(expected)
+  })
+
+  it('should remove an item', async () => {
+    const item = makeFakeItem()
+    await itemsDatabase.insert(item)
+    let removedCount = await itemsDatabase.remove({ id: item.id })
+    expect(removedCount).toEqual(1)
   })
 })

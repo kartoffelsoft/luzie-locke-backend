@@ -2,8 +2,7 @@ module.exports = function makeGetUserItemSoldList({ readItemDoneListByUser }) {
   return async function getUserItemSoldList(httpRequest) {
     let cursor = parseFloat(httpRequest.query.cursor)
     let limit = parseInt(httpRequest.query.limit)
-
-    console.log("@@@")
+    
     try {
       const list = await readItemDoneListByUser({ 
         uid: httpRequest.uid, 

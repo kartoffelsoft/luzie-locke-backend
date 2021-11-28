@@ -39,12 +39,6 @@ module.exports = function makeFavoriteItemsDatabase ({ makeDatabase }) {
     // return { id, ...rest  }
   }
 
-  async function remove ({ user, item }) {
-    const database = await makeDatabase()
-    const result = await database.collection('favorite-items').deleteOne({ user, item })
-    return result.deletedCount
-  }
-
   async function findByUser({ user, cursor, limit }) {
     const database = await makeDatabase()
     const result = await database.collection('favorite-items').aggregate([
@@ -135,9 +129,15 @@ module.exports = function makeFavoriteItemsDatabase ({ makeDatabase }) {
     }))
   }
 
+  async function remove ({ user, item }) {
+    const database = await makeDatabase()
+    const result = await database.collection('favorite-items').deleteOne({ user, item })
+    return result.deletedCount
+  }
+
   return Object.freeze({
     insert,
-    remove,
-    findByUser
+    findByUser,
+    remove
   })
 }

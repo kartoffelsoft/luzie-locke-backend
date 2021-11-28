@@ -28,7 +28,7 @@ router.post('/user/favorite', auth, makeExpressCallback(favoriteItemController.p
 router.patch('/:id', auth, itemsControllers.updateItem) // 
 router.patch('/:id/like', auth, itemsControllers.updateLike) //
 
-router.delete('/:id', auth, itemsControllers.deleteItem) //
+router.delete('/:id', auth, makeExpressCallback(itemController.deleteItem)) 
 router.delete('/user/favorite/:id', auth, makeExpressCallback(favoriteItemController.deleteFavoriteItem))
 
 module.exports = router

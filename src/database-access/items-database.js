@@ -282,12 +282,19 @@ module.exports = function makeItemsDatabase ({ makeDatabase }) {
     }))
   }
 
+  async function remove ({ id }) {
+    const database = await makeDatabase()
+    const result = await database.collection('items').deleteOne({ _id: id })
+    return result.deletedCount
+  }
+
   return Object.freeze({
     insert,
     findById,
     findByUser,
     findByCoordinates,
     findByKeyword,
-    findByKeywordAndCoordinates
+    findByKeywordAndCoordinates,
+    remove
   })
 }
