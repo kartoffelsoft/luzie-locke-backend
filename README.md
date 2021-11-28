@@ -14,7 +14,13 @@ GET api/items/search?q=...&cursor=...&limit=...
 GET api/items/user
 GET api/items/user/sold
 GET api/items/user/bought
+GET api/items/user/favorite
 GET api/items/:id
+
+POST api/items
+POST api/items/user/favorite
+
+DELETE api/items/user/favorite/:id
 ```
 
 ### auth

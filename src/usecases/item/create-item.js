@@ -1,4 +1,4 @@
-module.exports = function makeCreateItem ({ usersDatabase, itemsDatabase, makeItem }) {
+module.exports = function makeCreateItem({ usersDatabase, itemsDatabase, makeItem }) {
   return async function createItem ({ uid, title, price, description, imageUrls } = {}) {
     if (!uid || !title || !price || !description || !imageUrls) {
       throw new Error('Missing mandatory parameters: uid, title, price, description, imageUrls')
@@ -10,7 +10,7 @@ module.exports = function makeCreateItem ({ usersDatabase, itemsDatabase, makeIt
       throw new RangeError('User not found.')
     }
 
-    const newItem = makeItem({
+    const newData = makeItem({
       user: user.id,
       title,
       price,
@@ -20,18 +20,18 @@ module.exports = function makeCreateItem ({ usersDatabase, itemsDatabase, makeIt
     });
      
     return await itemsDatabase.insert({
-      id: newItem.getId(),
-      user: newItem.getUser(),
-      title: newItem.getTitle(),
-      price: newItem.getPrice(),
-      description: newItem.getDescription(),
-      imageUrls: newItem.getImageUrls(),
-      location: newItem.getLocation(),
-      state: newItem.getState(),
-      buyer: newItem.getBuyer(),
-      counts: newItem.getCounts(),
-      createdAt: newItem.getCreatedAt(),
-      modifiedAt: newItem.getModifiedAt()
+      id: newData.getId(),
+      user: newData.getUser(),
+      title: newData.getTitle(),
+      price: newData.getPrice(),
+      description: newData.getDescription(),
+      imageUrls: newData.getImageUrls(),
+      location: newData.getLocation(),
+      state: newData.getState(),
+      buyer: newData.getBuyer(),
+      counts: newData.getCounts(),
+      createdAt: newData.getCreatedAt(),
+      modifiedAt: newData.getModifiedAt()
     });
   }
 }

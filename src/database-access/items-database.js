@@ -63,7 +63,6 @@ module.exports = function makeItemsDatabase ({ makeDatabase }) {
             $lt: cursor 
           } 
         },
-
       },
       {
         $sort: { modifiedAt: -1 }
