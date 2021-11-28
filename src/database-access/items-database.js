@@ -35,6 +35,7 @@ module.exports = function makeItemsDatabase ({ makeDatabase }) {
           "createdAt": 1,
           "modifiedAt": 1,
           "user._id": 1,
+          "user.name": 1,
           "user.city": 1,
           "user.imageUrl": 1
         }
