@@ -1,9 +1,15 @@
 module.exports = function makeItemsDatabase ({ makeDatabase }) {
 
-  async function insert ({ id: _id = idMaker.make(), ...data }) {
+  async function insert({ id: _id = idMaker.make(), ...data }) {
     const database = await makeDatabase()
     const result = await database.collection('items').insertOne({ _id, ...data })
     return { id: result.insertedId, ...data  }
+  }
+
+  async function update({ id: _id, ...data }) {
+    const database = await makeDatabase()
+    const result = await database.collection('items').updateOne({ _id }, { $set: { ...data } })
+    return result.modifiedCount
   }
 
   async function findById({ id: _id }) {
@@ -290,6 +296,7 @@ module.exports = function makeItemsDatabase ({ makeDatabase }) {
 
   return Object.freeze({
     insert,
+    update,
     findById,
     findByUser,
     findByCoordinates,

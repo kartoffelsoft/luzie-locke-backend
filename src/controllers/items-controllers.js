@@ -159,12 +159,6 @@ const updateLike = async (req, res) => {
   res.status(200).json({});
 };
 
-const deleteItem = async (req, res) => {
-  const { id } = req.params;
-  console.log('deleteItem: ' + id);
-  res.status(200).json({});
-};
-
 module.exports = Object.freeze({
   getRecentItems,
   getHotItems,
@@ -172,6 +166,5 @@ module.exports = Object.freeze({
   getItem,
   createItem,
   updateItem,
-  updateLike,
-  deleteItem
+  updateLike
 })

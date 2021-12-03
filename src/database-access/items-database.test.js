@@ -26,6 +26,49 @@ describe('items database', () => {
     expect(received).toEqual(item)
   })
 
+  it('should update an item', async () => {
+    const user = makeFakeUser()
+    await usersDatabase.insert(user)
+
+    const item = makeFakeItem({ user: user.id })
+    await itemsDatabase.insert(item)
+
+    const updateItem = makeFakeItem()
+    let modifiedCount = await itemsDatabase.update({ 
+      id: item.id, 
+      title: updateItem.title,
+      price: updateItem.price,
+      description: updateItem.description,
+      imageUrls: updateItem.imageUrls,
+      modifiedAt: updateItem.modifiedAt
+    })
+
+    expect(modifiedCount).toEqual(1)
+
+    let received = await itemsDatabase.findById({ id: item.id })
+
+    let expected = { 
+      id: item.id,
+      state: item.state,
+      title: updateItem.title,
+      price: updateItem.price,
+      description: updateItem.description,
+      counts: item.counts,
+      imageUrls: updateItem.imageUrls,
+      createdAt: item.createdAt,
+      modifiedAt: updateItem.modifiedAt,
+      user: { 
+        id: user.id,
+        name: user.name,
+        city: user.city,
+        imageUrl: user.imageUrl
+      }
+    }
+
+    expect(received).toEqual(expected)
+  })
+
+
   it('should find an item by id', async () => {
     const user = makeFakeUser()
     await usersDatabase.insert(user)

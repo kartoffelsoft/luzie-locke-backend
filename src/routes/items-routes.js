@@ -25,7 +25,7 @@ router.get('/:id', makeExpressCallback(itemController.getItem))
 router.post('/', auth, makeExpressCallback(itemController.postItem))
 router.post('/user/favorite', auth, makeExpressCallback(favoriteItemController.postFavoriteItem)) 
 
-router.patch('/:id', auth, itemsControllers.updateItem) // 
+router.patch('/:id', auth, makeExpressCallback(itemController.patchItem)) // 
 router.patch('/:id/like', auth, itemsControllers.updateLike) //
 
 router.delete('/:id', auth, makeExpressCallback(itemController.deleteItem)) 
