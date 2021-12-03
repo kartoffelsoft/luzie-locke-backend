@@ -1,17 +1,17 @@
-module.exports = function makePostFavoriteItemList({ createFavoriteItem }) {
-  return async function postFavoriteItem(httpRequest) {
+module.exports = function makeGetFavoriteItemExist({ readFavoriteItemExist }) {
+  return async function getFavoriteItemExist(httpRequest) {
     try {
-      await createFavoriteItem({ 
+      const exist = await readFavoriteItemExist({ 
         user: httpRequest.uid, 
-        item: httpRequest.body.itemId
+        item: httpRequest.params.id
       })
-      
+
       return {
         statusCode: 200,
         body: {
           success: true,
           message: '',
-          data: null
+          data: { exist }
         }
       }
     } catch(error) {

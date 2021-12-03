@@ -10,12 +10,13 @@ PATCH api/users/location
 ### items
 ```
 GET api/items?cursor=...&limit=...
+GET api/items/:id
 GET api/items/search?q=...&cursor=...&limit=...
 GET api/items/user
 GET api/items/user/sold
 GET api/items/user/bought
-GET api/items/user/favorite
-GET api/items/:id
+GET api/items/user/favorite?cursor=...&limit=...
+GET api/items/user/favorite/:id
 
 POST api/items
 POST api/items/user/favorite

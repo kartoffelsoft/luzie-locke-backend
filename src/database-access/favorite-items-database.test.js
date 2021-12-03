@@ -22,10 +22,26 @@ describe('favorite-items database', () => {
       ])
   })
 
-  it('should insert an favorite item', async () => {
+  it('should insert a favorite item', async () => {
     const favoriteItem = makeFakeFavoriteItem()
     const insertedCount = await favoriteItemsDatabase.insert(favoriteItem)
     expect(insertedCount).toEqual(1)
+  })
+
+  it('should find a favorite item by user and item', async () => {
+    const favoriteItem = makeFakeFavoriteItem()
+    await favoriteItemsDatabase.insert(favoriteItem)
+
+    const received = await favoriteItemsDatabase.findByUserAndItem(favoriteItem)
+
+    const expected = {
+      id: favoriteItem.id,
+      user: favoriteItem.user,
+      item: favoriteItem.item,
+      createdAt: favoriteItem.createdAt
+    }
+
+    expect(received).toEqual(expected)
   })
 
   it('should find favorite items by user', async () => {

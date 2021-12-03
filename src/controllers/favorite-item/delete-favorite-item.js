@@ -1,17 +1,17 @@
 module.exports = function makeDeleteFavoriteItem({ deleteFavoriteItem }) {
   return async (httpRequest) => {
     try {
-      const list = await deleteFavoriteItem({ 
+      const deletedCount = await deleteFavoriteItem({ 
         user: httpRequest.uid, 
         item: httpRequest.params.id
       })
       
       return {
-        statusCode: 200,
+        statusCode: deletedCount == 0 ? 204 : 202,
         body: {
           success: true,
           message: '',
-          data: { list, nextCursor: nextCursor }
+          data: null
         }
       }
     } catch(error) {
