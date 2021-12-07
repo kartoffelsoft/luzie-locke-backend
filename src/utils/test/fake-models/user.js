@@ -9,7 +9,7 @@ function makeFakeUser(overrides) {
     email: faker.internet.email(),
     reputation: faker.datatype.number(),
     imageUrl: faker.image.imageUrl(),
-    proximity: faker.datatype.number(),
+    localLevel: faker.datatype.number({ 'min': 0, 'max': 9 }),
     city: faker.address.city(),
     location: {
       type: 'Point', 

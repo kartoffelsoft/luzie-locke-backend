@@ -1,4 +1,4 @@
-module.exports = function makeReadSearchList ({ itemsDatabase, readUser }) {
+module.exports = function makeReadSearchList ({ itemsDatabase, readUser, localLevelMapper }) {
   return async function readSearchList({ keyword, uid, cursor, limit } = {}) {
     if (!keyword || !uid || !limit || cursor == null) {
       throw new Error('Missing mandatory parameters: q, uid, cursor, limit')
@@ -15,7 +15,7 @@ module.exports = function makeReadSearchList ({ itemsDatabase, readUser }) {
       keyword,
       lng: user.location.coordinates[0], 
       lat: user.location.coordinates[1], 
-      radius: user.proximity
+      radius: localLevelMapper.map({ localLevel: user.localLevel })
     })
 
     return itemList

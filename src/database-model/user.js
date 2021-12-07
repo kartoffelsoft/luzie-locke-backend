@@ -6,7 +6,7 @@ function buildMakeUser() {
     email = '',
     reputation = 0,
     imageUrl = '',
-    proximity = 100,
+    localLevel = 9,
     city = '',
     location = {
       type: 'Point', coordinates: [0, 0]
@@ -21,6 +21,9 @@ function buildMakeUser() {
     if(!name) {
       throw new Error('User data must have a name.')
     }
+    if(!(0 <= localLevel && localLevel <= 9)) {
+      throw new Error('localLevel is out of range.')
+    }
 
     return Object.freeze({
       getId: () => id,
@@ -29,7 +32,7 @@ function buildMakeUser() {
       getEmail: () => email,
       getReputation: () => reputation,
       getImageUrl: () => imageUrl,
-      getProximity: () => proximity,
+      getLocalLevel: () => localLevel,
       getCity: () => city,
       getLocation: () => location
     })

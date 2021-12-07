@@ -28,7 +28,7 @@ function makeAuthGoogle({ googleAuthApi, usersDatabase, makeUser }) {
         email: newUser.getEmail(),
         reputation: newUser.getReputation(),
         imageUrl: newUser.getImageUrl(),
-        proximity: newUser.getProximity(),
+        localLevel: newUser.getLocalLevel(),
         city: newUser.getCity(),
         location: newUser.getLocation()
       });
