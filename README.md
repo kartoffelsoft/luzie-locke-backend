@@ -4,7 +4,13 @@
 ### users
 ```
 GET api/users/:id  
-PATCH api/users/location
+GET api/users/self
+
+GET api/users/self/settings/location
+GET api/users/self/settings/local-level
+
+PATCH api/users/self/settings/location
+PATCH api/users/self/settings/local-level
 ```
 
 ### items
