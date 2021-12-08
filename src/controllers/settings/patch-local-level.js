@@ -1,8 +1,6 @@
 module.exports = function makePatchLocalLevel({ updateLocalLevel }) {
   return async (httpRequest) => {
     try {
-      console.log("makePatchLocalLevel:", httpRequest.body.localLevel)
-
       await updateLocalLevel({ 
         uid: httpRequest.uid,
         data: { localLevel: httpRequest.body.localLevel }

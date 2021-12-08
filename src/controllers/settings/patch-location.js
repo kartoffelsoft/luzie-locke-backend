@@ -1,11 +1,15 @@
 module.exports = function makePatchLocation({ updateLocation }) {
-  return async function patchLocation(httpRequest) {
+  return async (httpRequest) => {
     try {
       const user = await updateLocation({ 
         uid: httpRequest.uid,
-        city: httpRequest.body.city,
-        lng: httpRequest.body.lng,
-        lat: httpRequest.body.lat
+        data: { 
+          city: httpRequest.body.city,
+          location: {
+            type: 'Point',
+            coordinates: [httpRequest.body.lng, httpRequest.body.lat]
+          }
+        }
       })
 
       return {

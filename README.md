@@ -5,12 +5,6 @@
 ```
 GET api/users/:id  
 GET api/users/self
-
-GET api/users/self/settings/location
-GET api/users/self/settings/local-level
-
-PATCH api/users/self/settings/location
-PATCH api/users/self/settings/local-level
 ```
 
 ### items
@@ -35,6 +29,15 @@ DELETE api/items/user/favorite/:id
 ### auth
 ```
 POST api/auth/google
+```
+
+### settings
+```
+GET api/users/self/settings/location
+GET api/users/self/settings/local-level
+
+PATCH api/users/self/settings/location
+PATCH api/users/self/settings/local-level
 ```
 
 ## Response

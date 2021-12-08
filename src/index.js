@@ -6,7 +6,7 @@ const http = require('http');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-const { usersRoutes, itemsRoutes, authRoutes } = require('./routes');
+const { usersRoute, itemsRoute, authRoute, settingsRoute } = require('./routes');
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
@@ -20,9 +20,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use('/api/users', usersRoutes);
-app.use('/api/items', itemsRoutes);
-app.use('/api/auth', authRoutes);
+app.use('/api/users', usersRoute);
+app.use('/api/items', itemsRoute);
+app.use('/api/auth', authRoute);
+app.use('/api/settings', settingsRoute);
 
 app.get('/ping', (req, res) => {
   return res.status(200).json('succeed');

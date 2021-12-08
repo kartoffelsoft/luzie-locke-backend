@@ -1,7 +1,7 @@
 module.exports = function makeUpdateLocation ({ usersDatabase, makeUser }) {
-  return async function updateLocation ({ uid, city, lng, lat } = {}) {
-    if (!uid || !city || !lng || !lat) {
-      throw new Error('Missing mandatory parameters: uid, city, lng, lat')
+  return async function updateLocation ({ uid, data } = {}) {
+    if (!uid || !data) {
+      throw new Error('Missing mandatory parameters: uid, data')
     }
 
     const existing = await usersDatabase.findById({ id: uid })
@@ -12,11 +12,8 @@ module.exports = function makeUpdateLocation ({ usersDatabase, makeUser }) {
 
     const user = makeUser({ 
       ...existing, 
-      city: city, 
-      location: {
-        type: 'Point',
-        coordinates: [lng, lat]
-      }
+      city: data.city, 
+      location: data.location
     })
 
     const updated = await usersDatabase.update({
