@@ -1,14 +1,13 @@
-module.exports = function makeGetLocation({ readUser }) {
+module.exports = function makeGetUserImage({ readUser }) {
   return async (httpRequest) => {
     try {
-      const user = await readUser({ id: httpRequest.uid })
-
+      const user = await readUser({ id: httpRequest.params.id })
       return {
         statusCode: 200,
         body: {
           success: true,
           message: '',
-          data: { city: user.city, lng: user.location.coordinates[0], lat: user.location.coordinates[1] }
+          data: { url: user.imageUrl }
         }
       }
     } catch(error) {

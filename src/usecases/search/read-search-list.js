@@ -4,7 +4,7 @@ module.exports = function makeReadSearchList ({ itemsDatabase, readUser, localLe
       throw new Error('Missing mandatory parameters: q, uid, cursor, limit')
     }
 
-    const user = await readUser({ uid })
+    const user = await readUser({ id: uid })
     if (!user) {
       throw new RangeError('User not found.')
     }

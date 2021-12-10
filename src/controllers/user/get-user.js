@@ -1,7 +1,7 @@
 module.exports = function makeGetUser({ readUser }) {
   return async function getUser(httpRequest) {
     try {
-      const user = await readUser({ uid: httpRequest.params.id })
+      const user = await readUser({ id: httpRequest.params.id })
       return {
         statusCode: 200,
         body: {

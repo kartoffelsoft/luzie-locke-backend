@@ -1,7 +1,7 @@
 module.exports = function makeGetLocalLevel({ readUser }) {
   return async (httpRequest) => {
     try {
-      const user = await readUser({ uid: httpRequest.uid })
+      const user = await readUser({ id: httpRequest.uid })
 
       return {
         statusCode: 200,

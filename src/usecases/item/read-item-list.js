@@ -4,7 +4,7 @@ module.exports = function makeReadItemList ({ itemsDatabase, readUser, localLeve
       throw new Error('Missing mandatory parameters: uid, cursor, limit')
     }
 
-    const user = await readUser({ uid })
+    const user = await readUser({ id: uid })
     if (!user) {
       throw new RangeError('User not found.')
     }

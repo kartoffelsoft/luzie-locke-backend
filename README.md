@@ -40,6 +40,13 @@ PATCH api/users/self/settings/location
 PATCH api/users/self/settings/local-level
 ```
 
+
+### images
+```
+GET api/images/users/:id
+GET api/images/items/:id
+```
+
 ## Response
 ### Base
 ```
