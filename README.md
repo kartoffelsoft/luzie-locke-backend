@@ -13,13 +13,13 @@ GET api/users/self
 GET api/items?cursor=...&limit=...
 GET api/items/:id
 GET api/items/:id/image
+GET api/items/:id/state
 GET api/items/search?q=...&cursor=...&limit=...
 
 POST api/items
 
 PATCH api/items/:id
 DELETE api/items/:id
-
 ```
 
 ### user-items

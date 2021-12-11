@@ -23,6 +23,7 @@ router.get('/hot', itemsControllers.getHotItems) //
 router.get('/garage/', auth, itemsControllers.getGarageItems) // 
 router.get('/:id', makeExpressCallback(itemController.getItem))
 router.get('/:id/image', makeExpressCallback(itemController.getItemImage))
+router.get('/:id/state', makeExpressCallback(itemController.getItemState))
 
 router.post('/', auth, makeExpressCallback(itemController.postItem))
 router.post('/user/favorite', auth, makeExpressCallback(favoriteItemController.postFavoriteItem)) 
