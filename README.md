@@ -4,6 +4,7 @@
 ### users
 ```
 GET api/users/:id  
+GET api/items/:id/image
 GET api/users/self
 ```
 
@@ -11,19 +12,26 @@ GET api/users/self
 ```
 GET api/items?cursor=...&limit=...
 GET api/items/:id
+GET api/items/:id/image
 GET api/items/search?q=...&cursor=...&limit=...
+
+POST api/items
+
+PATCH api/items/:id
+DELETE api/items/:id
+
+```
+
+### user-items
+```
 GET api/items/user
 GET api/items/user/sold
 GET api/items/user/bought
 GET api/items/user/favorite?cursor=...&limit=...
 GET api/items/user/favorite/:id
 
-POST api/items
-POST api/items/user/favorite
-
-PATCH api/items/:id
-DELETE api/items/:id
 DELETE api/items/user/favorite/:id
+POST api/items/user/favorite
 ```
 
 ### auth
