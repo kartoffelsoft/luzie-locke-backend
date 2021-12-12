@@ -9,15 +9,15 @@ const makePatchItem           = require('./patch-item.js')
 const makePatchItemTradeState = require('./patch-item-trade-state.js')
 const makeDeleteItem          = require('./delete-item.js')
 
-const getItem               = makeGetItem({ readItem: itemUseCases.readItem })
-const getItemList           = makeGetItemList({ readItemList: itemUseCases.readItemList })
-const getItemImage          = makeGetItemImage({ readItem: itemUseCases.readItem })
-const getItemTradeState     = makeGetItemTradeState({ readItem: itemUseCases.readItem })
+const getItem                 = makeGetItem({ readItem: itemUseCases.readItem })
+const getItemList             = makeGetItemList({ readItemList: itemUseCases.readItemList })
+const getItemImage            = makeGetItemImage({ readItem: itemUseCases.readItem })
+const getItemTradeState       = makeGetItemTradeState({ readItem: itemUseCases.readItem })
 
-const postItem              = makePostItem({ createItem: itemUseCases.createItem })
-const patchItem             = makePatchItem({ updateItem: itemUseCases.updateItem })
-const patchItemTradeState   = makePatchItemTradeState({ updateItemTradeState: itemUseCases.updateItemTradeState })
-const deleteItem            = makeDeleteItem({ deleteItem: itemUseCases.deleteItem })
+const postItem                = makePostItem({ createItem: itemUseCases.createItem })
+const patchItem               = makePatchItem({ updateItem: itemUseCases.updateItem })
+const patchItemTradeState     = makePatchItemTradeState({ updateItemTradeState: itemUseCases.updateItemTradeState })
+const deleteItem              = makeDeleteItem({ deleteItem: itemUseCases.deleteItem })
 
 module.exports = Object.freeze({
   getItem,

@@ -1,16 +1,15 @@
-const itemUseCases = require('../../usecases/item')
-const itemDoneUseCases = require('../../usecases/item-done')
+const userItemUseCases = require('../../usecases/user-item')
 
-const makeUserItemList        = require('./get-user-item-list.js')
-const makeUserItemSoldList    = require('./get-user-item-sold-list.js')
-const makeUserItemBoughtList  = require('./get-user-item-bought-list.js')
+const makeGetUserItemOpenList    = require('./get-user-item-open-list.js')
+const makeGetUserItemSoldList    = require('./get-user-item-sold-list.js')
+const makeGetUserItemBoughtList  = require('./get-user-item-bought-list.js')
 
-const getUserItemList         = makeUserItemList({ readItemListByUser: itemUseCases.readItemListByUser })
-const getUserItemSoldList     = makeUserItemSoldList({ readItemDoneListByUser: itemDoneUseCases.readItemListByUser })
-const getUserItemBoughtList   = makeUserItemBoughtList({ readItemDoneListByBuyer: itemDoneUseCases.readItemListByBuyer })
+const getUserItemOpenList     = makeGetUserItemOpenList({ readOpenItemList: userItemUseCases.readOpenItemList })
+const getUserItemSoldList     = makeGetUserItemSoldList({ readSoldItemList: userItemUseCases.readSoldItemList })
+const getUserItemBoughtList   = makeGetUserItemBoughtList({ readBoughtItemList: userItemUseCases.readBoughtItemList })
 
 module.exports = Object.freeze({
-  getUserItemList,
+  getUserItemOpenList,
   getUserItemSoldList,
   getUserItemBoughtList
 })

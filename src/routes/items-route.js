@@ -13,9 +13,7 @@ const router = express.Router()
 
 router.get('/', auth, makeExpressCallback(itemController.getItemList))
 router.get('/search', auth, makeExpressCallback(searchController.getSearchList))
-router.get('/user', auth, makeExpressCallback(userItemController.getUserItemList))
-router.get('/user/sold', auth, makeExpressCallback(userItemController.getUserItemSoldList))
-router.get('/user/bought', auth, makeExpressCallback(userItemController.getUserItemBoughtList))
+
 router.get('/user/favorite', auth, makeExpressCallback(favoriteItemController.getFavoriteItemList)) 
 router.get('/user/favorite/:id', auth, makeExpressCallback(favoriteItemController.getFavoriteItemExist)) 
 

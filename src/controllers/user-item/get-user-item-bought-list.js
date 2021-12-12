@@ -1,11 +1,11 @@
-module.exports = function makeGetUserItemBoughtList({ readItemDoneListByBuyer }) {
-  return async function getUserItemBoughtList(httpRequest) {
+module.exports = function makeGetUserItemBoughtList({ readBoughtItemList }) {
+  return async (httpRequest) => {
     let cursor = parseFloat(httpRequest.query.cursor)
     let limit = parseInt(httpRequest.query.limit)
 
     try {
-      const list = await readItemDoneListByBuyer({ 
-        uid: httpRequest.uid, 
+      const list = await readBoughtItemList({ 
+        uid: httpRequest.params.id, 
         cursor: cursor, 
         limit: limit
       })
