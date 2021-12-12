@@ -7,7 +7,7 @@ module.exports = function makeGetItemState({ readItem }) {
         body: {
           success: true,
           message: '',
-          data: { state: item.state }
+          data: { state: item.state, sellerId: item.user.id, buyerId: item.buyer }
         }
       }
     } catch(error) {

@@ -43,7 +43,8 @@ module.exports = function makeItemsDatabase ({ makeDatabase }) {
           "user._id": 1,
           "user.name": 1,
           "user.city": 1,
-          "user.imageUrl": 1
+          "user.imageUrl": 1,
+          "buyer": 1
         }
       }
     ])

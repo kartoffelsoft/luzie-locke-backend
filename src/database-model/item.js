@@ -9,7 +9,7 @@ function buildMakeItem({ idMaker }) {
     location,
     state = 'open',
     buyer = '',
-    counts = { chat: 0, favorite: 0, view: 0},
+    counts = { chat: 0, favorite: 0, view: 0 },
     createdAt = Date.now(),
     modifiedAt = createdAt
   } = {}) {

@@ -23,13 +23,14 @@ router.get('/hot', itemsControllers.getHotItems) //
 router.get('/garage/', auth, itemsControllers.getGarageItems) // 
 router.get('/:id', makeExpressCallback(itemController.getItem))
 router.get('/:id/image', makeExpressCallback(itemController.getItemImage))
-router.get('/:id/state', makeExpressCallback(itemController.getItemState))
+router.get('/:id/trade-state', makeExpressCallback(itemController.getItemTradeState))
 
 router.post('/', auth, makeExpressCallback(itemController.postItem))
 router.post('/user/favorite', auth, makeExpressCallback(favoriteItemController.postFavoriteItem)) 
 
-router.patch('/:id', auth, makeExpressCallback(itemController.patchItem)) // 
+router.patch('/:id', auth, makeExpressCallback(itemController.patchItem)) 
 router.patch('/:id/like', auth, itemsControllers.updateLike) //
+router.patch('/:id/trade-state', makeExpressCallback(itemController.patchItemTradeState))
 
 router.delete('/:id', auth, makeExpressCallback(itemController.deleteItem)) 
 router.delete('/user/favorite/:id', auth, makeExpressCallback(favoriteItemController.deleteFavoriteItem))
