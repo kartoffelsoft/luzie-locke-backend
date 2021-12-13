@@ -2,8 +2,8 @@ module.exports = function makeDeleteFavoriteItem({ deleteFavoriteItem }) {
   return async (httpRequest) => {
     try {
       const deletedCount = await deleteFavoriteItem({ 
-        user: httpRequest.uid, 
-        item: httpRequest.params.id
+        user: httpRequest.params.id1, 
+        item: httpRequest.params.id2
       })
       
       return {

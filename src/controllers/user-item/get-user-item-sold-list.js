@@ -12,6 +12,7 @@ module.exports = function makeGetUserItemSoldList({ readSoldItemList }) {
       
       let nextCursor = list.length == limit ? list[list.length - 1].modifiedAt : -1
 
+      console.log(list)
       return {
         statusCode: 200,
         body: {

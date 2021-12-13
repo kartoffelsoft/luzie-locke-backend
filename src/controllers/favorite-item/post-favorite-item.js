@@ -2,7 +2,7 @@ module.exports = function makePostFavoriteItemList({ createFavoriteItem }) {
   return async function postFavoriteItem(httpRequest) {
     try {
       await createFavoriteItem({ 
-        user: httpRequest.uid, 
+        user: httpRequest.params.id, 
         item: httpRequest.body.itemId
       })
       

@@ -5,7 +5,7 @@ module.exports = function makeGetFavoriteItemList({ readFavoriteItemListByUser }
 
     try {
       const list = await readFavoriteItemListByUser({ 
-        user: httpRequest.uid, 
+        user: httpRequest.params.id, 
         cursor: cursor, 
         limit: limit
       })

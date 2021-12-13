@@ -1,9 +1,9 @@
-module.exports = function makeGetFavoriteItemExist({ readFavoriteItemExist }) {
-  return async function getFavoriteItemExist(httpRequest) {
+module.exports = function makeGetFavoriteItem({ readFavoriteItem }) {
+  return async (httpRequest) => {
     try {
-      const exist = await readFavoriteItemExist({ 
-        user: httpRequest.uid, 
-        item: httpRequest.params.id
+      const favorite = await readFavoriteItem({ 
+        user: httpRequest.params.id1, 
+        item: httpRequest.params.id2
       })
 
       return {
@@ -11,7 +11,7 @@ module.exports = function makeGetFavoriteItemExist({ readFavoriteItemExist }) {
         body: {
           success: true,
           message: '',
-          data: { exist }
+          data: { favorite }
         }
       }
     } catch(error) {
