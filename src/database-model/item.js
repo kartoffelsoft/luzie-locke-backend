@@ -8,7 +8,7 @@ function buildMakeItem({ idMaker }) {
     imageUrls,
     location,
     state = 'open',
-    buyer = '',
+    buyerId = '',
     counts = { chat: 0, favorite: 0, view: 0 },
     createdAt = Date.now(),
     modifiedAt = createdAt
@@ -44,7 +44,7 @@ function buildMakeItem({ idMaker }) {
       getImageUrls: () => imageUrls,
       getLocation: () => location,
       getState: () => state,
-      getBuyer: () => buyer,
+      getBuyerId: () => buyerId,
       getCounts: () => counts,
       getCreatedAt: () => createdAt,
       getModifiedAt: () => modifiedAt

@@ -57,7 +57,7 @@ describe('items database', () => {
       imageUrls: updateItem.imageUrls,
       createdAt: item.createdAt,
       modifiedAt: updateItem.modifiedAt,
-      buyer: item.buyer,
+      buyerId: item.buyerId,
       user: { 
         id: user.id,
         name: user.name,
@@ -89,7 +89,7 @@ describe('items database', () => {
       imageUrls: item.imageUrls,
       createdAt: item.createdAt,
       modifiedAt: item.modifiedAt,
-      buyer: item.buyer,
+      buyerId: item.buyerId,
       user: { 
         id: user.id,
         name: user.name,
@@ -134,18 +134,18 @@ describe('items database', () => {
     expect(received).toEqual(expected)
   })
 
-  it('should find items by buyer', async () => {
+  it('should find items by buyer id', async () => {
     const seller = makeFakeUser()
     await usersDatabase.insert(seller)
 
     const buyer = makeFakeUser()
     await usersDatabase.insert(buyer)
 
-    const item = makeFakeItem({ user: seller.id, buyer: buyer.id })
+    const item = makeFakeItem({ user: seller.id, buyerId: buyer.id })
     await itemsDatabase.insert(item)
 
-    const received = await itemsDatabase.findByBuyer({ 
-      buyer: buyer.id,
+    const received = await itemsDatabase.findByBuyerId({ 
+      buyerId: buyer.id,
       cursor: Number.MAX_VALUE,
       limit: 5
     })

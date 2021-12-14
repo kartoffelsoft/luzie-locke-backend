@@ -28,7 +28,7 @@ module.exports = function makeCreateItem({ usersDatabase, itemsDatabase, makeIte
       imageUrls: newData.getImageUrls(),
       location: newData.getLocation(),
       state: newData.getState(),
-      buyer: newData.getBuyer(),
+      buyerId: newData.getBuyerId(),
       counts: newData.getCounts(),
       createdAt: newData.getCreatedAt(),
       modifiedAt: newData.getModifiedAt()

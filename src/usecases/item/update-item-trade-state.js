@@ -1,13 +1,13 @@
 module.exports = function makeUpdateItemTradeState({ itemsDatabase }) {
-  return async ({ id, state, buyer } = {}) => {
-    if(!id || !state || buyer == null) {
-      throw new Error('Missing mandatory parameters: id, state, buyer')
+  return async ({ id, state, buyerId } = {}) => {
+    if(!id || !state || buyerId == null) {
+      throw new Error('Missing mandatory parameters: id, state, buyerId')
     }
 
     const modifiedCount = await itemsDatabase.update({ 
       id,
       state,
-      buyer
+      buyerId
     })
 
     if(modifiedCount == 1) {

@@ -4,8 +4,8 @@ module.exports = function makeReadBoughtItemList ({ itemsDatabase }) {
       throw new Error('Missing mandatory parameters: uid, cursor, limit')
     }
 
-    const itemList = await itemsDatabase.findByBuyer({ 
-      buyer: uid,
+    const itemList = await itemsDatabase.findByBuyerId({ 
+      buyerId: uid,
       cursor, 
       limit,
       state: 'sold'

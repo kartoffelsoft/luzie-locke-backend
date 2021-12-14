@@ -44,7 +44,7 @@ module.exports = function makeItemsDatabase ({ makeDatabase }) {
           "user.name": 1,
           "user.city": 1,
           "user.imageUrl": 1,
-          "buyer": 1
+          "buyerId": 1
         }
       }
     ])
@@ -115,13 +115,13 @@ module.exports = function makeItemsDatabase ({ makeDatabase }) {
     }))
   }
 
-  async function findByBuyer({ buyer, cursor, limit, state = "open" }) {
+  async function findByBuyerId({ buyerId, cursor, limit, state = "open" }) {
     const database = await makeDatabase()
     const result = await database.collection('items').aggregate([
       {
         $match: 
         { 
-          buyer,   
+          buyerId,   
           state,
           modifiedAt: 
           { 
@@ -360,7 +360,7 @@ module.exports = function makeItemsDatabase ({ makeDatabase }) {
     update,
     findById,
     findByUser,
-    findByBuyer,
+    findByBuyerId,
     findByCoordinates,
     findByKeyword,
     findByKeywordAndCoordinates,

@@ -17,7 +17,7 @@ function makeFakeItem(overrides) {
       ]
     },
     state: 'open',
-    buyer: cuid(),
+    buyerId: cuid(),
     counts: { 
       chat: faker.datatype.number(),
       favorite: faker.datatype.number(), 
