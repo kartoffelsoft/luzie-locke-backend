@@ -1,18 +1,17 @@
-module.exports = function makePatchItemTradeState({ updateItemTradeState }) {
+module.exports = function makePatchItemTradeState({ updateItem }) {
   return async (httpRequest) => {
-    console.log("@@", httpRequest.body)
     try {
-      const item = await updateItemTradeState({ 
+      const modifiedCount = await updateItem({ 
         id: httpRequest.params.id,
-        state: httpRequest.body.state, 
-        buyerId: httpRequest.body.buyerId })
+        ...httpRequest.body
+      })
 
       return {
-        statusCode: item == null ? 204 : 201,
+        statusCode: modifiedCount == 1 ? 204 : 201,
         body: {
           success: true,
           message: '',
-          data: { state: item.state, sellerId: item.user.id, buyerId: item.buyerId }
+          data: null
         }
       }
     } catch(error) {

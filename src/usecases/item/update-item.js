@@ -1,16 +1,13 @@
 module.exports = function makeUpdateItem({ itemsDatabase }) {
-  return async function updateItem ({ id, title, price, description, imageUrls } = {}) {
-    if (!id || !title || !price || !description || !imageUrls) {
-      throw new Error('Missing mandatory parameters: id, title, price, description, imageUrls')
+  return async function updateItem ({ id, ...data } = {}) {
+    if (!id) {
+      throw new Error('Missing mandatory parameters: id')
     }
 
     return await itemsDatabase.update({ 
       id,
-      title,
-      price,
-      description,
-      imageUrls,
-      modifiedAt: Date.now()
+      modifiedAt: Date.now(),
+      ...data
     })
   }
 }

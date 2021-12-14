@@ -14,7 +14,7 @@ const getItemImage            = makeGetItemImage({ readItem: itemUseCases.readIt
 
 const postItem                = makePostItem({ createItem: itemUseCases.createItem })
 const patchItem               = makePatchItem({ updateItem: itemUseCases.updateItem })
-const patchItemTradeState     = makePatchItemTradeState({ updateItemTradeState: itemUseCases.updateItemTradeState })
+const patchItemTradeState     = makePatchItemTradeState({ updateItem: itemUseCases.updateItem })
 const deleteItem              = makeDeleteItem({ deleteItem: itemUseCases.deleteItem })
 
 module.exports = Object.freeze({
