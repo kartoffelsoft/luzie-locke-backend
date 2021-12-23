@@ -1,7 +1,6 @@
 const express = require('express')
 const auth = require('../middleware/auth.js')
 
-const usersControllers = require('../controllers/users-controllers.js')
 const userController = require('../controllers/user')
 const userItemController = require('../controllers/user-item')
 const favoriteItemController = require('../controllers/favorite-item')
@@ -12,8 +11,6 @@ const router = express.Router()
 
 router.get('/:id', makeExpressCallback(userController.getUser))
 router.get('/:id/image', makeExpressCallback(userController.getUserImage))
-
-router.post('/login/refresh', usersControllers.refreshAccessToken)
 
 router.get('/:id/open-items', auth, makeExpressCallback(userItemController.getUserItemOpenList))
 router.get('/:id/sold-items', auth, makeExpressCallback(userItemController.getUserItemSoldList))
