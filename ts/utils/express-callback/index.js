@@ -1,4 +1,6 @@
-function makeExpressCallback(controller) {
+import { Request, Response } from "express"
+ 
+export const makeExpressCallback = (controller) => {
   return (req, res) => {
     const httpRequest = {
       body: req.body,
@@ -30,6 +32,3 @@ function makeExpressCallback(controller) {
   }
 }
 
-module.exports = {
-  makeExpressCallback
-}

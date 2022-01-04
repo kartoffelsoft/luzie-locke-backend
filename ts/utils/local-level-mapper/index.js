@@ -1,3 +1,8 @@
+
+// interface NumberMap {
+//   [key: number]: number;
+// }
+
 const localLevelToRadiusMap = {
   0: 3,
   1: 5,
